@@ -82,7 +82,6 @@ export default function Login() {
                         <hr />
                         <div className="flex w-full items-center flex-col mt-5 gap-3">
                             <button onClick={handleRegister} className='block'> <img src={googleLogo} alt="" className='w-12 h-12 inline-block' />Log in with Google</button>
-                            <button> <img src={fbLogo} alt="" className='w-10 h-10 inline-block mr-1' />Log in with Facebook</button>
                         </div>
                     </div>
                 </div>
