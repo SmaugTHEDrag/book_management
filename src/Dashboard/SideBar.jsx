@@ -13,14 +13,15 @@ const SideBar = () => {
     <div className=''>
       <Sidebar aria-label="Sidebar with content separator example" className='hidden md:block'>
         <Sidebar.Logo
-          href="/"
           img={ img}
           className='w-10 h-10 rounded-full'
           imgAlt="Flowbite logo"
         >
+          <Link to ="/">
           <p>
             {user?.displayName || "Demo User" }
           </p>
+          </Link>
         </Sidebar.Logo>
         <Sidebar.Items>
           <Sidebar.ItemGroup>
