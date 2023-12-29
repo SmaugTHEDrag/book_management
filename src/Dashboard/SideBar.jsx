@@ -25,28 +25,30 @@ const SideBar = () => {
         <Sidebar.Items>
           <Sidebar.ItemGroup>
             <Sidebar.Item
-              href="/admin/dashboard"
               icon={HiChartPie}>
+              <Link to="/admin/dashboard">
               <p>
                 Dashboard
               </p>
+              </Link>
             </Sidebar.Item>
             <Sidebar.Item
-              href="/admin/dashboard/upload"
-              icon={HiOutlineCloudUpload}
-            >
+              icon={HiOutlineCloudUpload}>
+              <Link to="/admin/dashboard/upload">
               <p>
                 Upload Book
               </p>
+              </Link>
             </Sidebar.Item>
 
             <Sidebar.Item
-              href="/admin/dashboard/manage"
               icon={HiInbox}
             >
+              <Link to="/admin/dashboard/manage">
               <p>
                 ManageBooks
               </p>
+              </Link>
             </Sidebar.Item>
             <Sidebar.Item
               href="#"
@@ -65,20 +67,22 @@ const SideBar = () => {
               </p>
             </Sidebar.Item>
             <Sidebar.Item
-              href="/login"
               icon={HiArrowSmRight}
             >
+              <Link to="/login">
               <p>
                 Sign In
               </p>
+              </Link>
             </Sidebar.Item>
             <Sidebar.Item
-              href="/logout"
               icon={HiTable}
             >
+              <Link to="/logout">
               <p>
                 Log out
               </p>
+              </Link>
             </Sidebar.Item>
           </Sidebar.ItemGroup>
           <Sidebar.ItemGroup>
