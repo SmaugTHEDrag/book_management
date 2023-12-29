@@ -14,36 +14,42 @@ const Review = () => {
       text: 'Excellent service! Highly recommended.',
       author: 'John Doe',
       company: 'CEO, ABC Corporation',
+      img: 'https://en.ephoto360.com/uploads/worigin/2017/07/19/avatar-lol596ec026d450c_b648a6ae6189692ef90775102fc900d3.jpg',
     },
     {
       rating: 4,
       text: 'Good experience overall. Room for improvement.',
       author: 'Jane Smith',
       company: 'CTO, XYZ Tech',
+      img: 'https://en.ephoto360.com/uploads/worigin/media/avatar-lol-name/thumb/Zyra_4.jpg',
     },
     {
       rating: 3,
       text: 'Average service. Could be better.',
       author: 'Bob Johnson',
       company: 'Founder, LMN Ventures',
+      img: 'https://en.ephoto360.com/uploads/worigin/media/avatar-lol-name/thumb/Yorick_1.jpg',
     },
     {
       rating: 5,
       text: 'Outstanding! Will definitely come back.',
       author: 'Alice White',
       company: 'COO, PQR Innovations',
+      img: 'path/to/john-doe.jpg',
     },
     {
       rating: 4,
       text: 'Great customer service. Prompt and efficient.',
       author: 'Chris Brown',
       company: 'Director, XYZ Solutions',
+      img: 'path/to/john-doe.jpg',
     },
     {
       rating: 5,
       text: 'Exceptional quality. Worth every penny.',
       author: 'Emily Davis',
       company: 'Manager, ABC Services',
+      img: 'path/to/john-doe.jpg',
     },
   ];
 
@@ -75,7 +81,7 @@ const Review = () => {
 
                 <div className='mt-7'>
                   <p className='mb-5'>{review.text}</p>
-                  <Avatar alt={`avatar of ${review.author}`} img={profile} rounded className='w-10 mb-4' />
+                  <Avatar alt={`avatar of ${review.author}`} img={review.img} rounded className='w-10 mb-4' />
                   <h5 className='text-lg font-medium'>{review.author}</h5>
                   <p className='text-sm'>{review.company}</p>
                 </div>
