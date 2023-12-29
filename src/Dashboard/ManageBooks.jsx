@@ -4,6 +4,8 @@ import { Pagination } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
 const ManageBooks = () => {
+    
+    const booksPerPage = 10;
     const [allBooks, setAllBooks] = useState([]);
     useEffect(() => {
         fetch(`https://book-management-4qw7.onrender.com/all-books`)
@@ -12,7 +14,7 @@ const ManageBooks = () => {
                 // console.log(data);
                 setAllBooks(data);
             });
-    }, []);
+    }, []); 
 
     // delete a books
     const handleDelete = (id) => {
@@ -30,7 +32,9 @@ const ManageBooks = () => {
 
     // pagination
     const [currentPage, setCurrentPage] = useState(1);
-    const onPageChange = () => setCurrentPage(page);
+    const indexOfLastBook = currentPage * booksPerPage;
+    const indexOfFirstBook = indexOfLastBook - booksPerPage;
+    const currentBooks = allBooks.slice(indexOfFirstBook, indexOfLastBook);
 
     return (
         <div className='px-4 my-12'>
@@ -95,14 +99,14 @@ const ManageBooks = () => {
 
             {/* pagination */}
             <div className="flex items-center justify-center text-center mt-8">
-                <Pagination
-                    currentPage={1}
+            <Pagination
+                    currentPage={currentPage}
                     layout="pagination"
                     nextLabel="Go forward"
-                    onPageChange={page => { setCurrentPage(page) }}
+                    onPageChange={(page) => setCurrentPage(page)}
                     previousLabel="Go back"
                     showIcons
-                    totalPages={1000}
+                    totalPages={Math.ceil(allBooks.length / booksPerPage)}
                 />
             </div>
         </div>
