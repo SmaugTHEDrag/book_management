@@ -55,7 +55,7 @@ const UploadBook = () => {
       bookPDFURL,
     };
     // console.log(dataObj)
-    fetch("http://localhost:5000/upload-book", {
+    fetch("https://book-management-4qw7.onrender.com/upload-book", {
       method: "POST",
 
       headers: {
