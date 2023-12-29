@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       {
         path: "/book/:id",
         element: <SignleBook />,
-        loader: ({ params }) => fetch(`http://localhost:5000/book/${params.id}`)
+        loader: ({ params }) => fetch(`https://book-management-4qw7.onrender.com/book/${params.id}`)
       },
       {
         path: "/about",
