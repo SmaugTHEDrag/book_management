@@ -13,7 +13,7 @@ export default function Shop() {
       .then((data) => {
         const filteredBooks = data.filter((book) =>
           book.bookTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          book.bookDescription.toLowerCase().includes(searchQuery.toLowerCase())
+          book.authorName.toLowerCase().includes(searchQuery.toLowerCase())
         );
         setBooks(filteredBooks);
       });
@@ -31,32 +31,28 @@ export default function Shop() {
   };
 
   return (
-    <div className='my-28 px-4 lg:px-24'>
-      <h2 className='text-3xl font-bold text-center mb-16 z-40'>All Books are Available Here</h2>
-      <div className='mb-4'>
+    <div className='my-20 px-4 lg:px-24'>
+      <h2 className='text-3xl font-bold text-center mb-7 z-40'>All Books are Available Here</h2>
+      <div className='mb-4 text-center'>
         <input
           type='text'
-          placeholder='Search books by title or description...'
+          placeholder='Book Title / Book Author'
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className='px-4 py-2 border rounded'
+          className='px-6 py-2 border rounded'
         />
       </div>
-      <button
-        className='px-4 py-2 bg-blue-600 text-white rounded'
-        onClick={handleSearch}
-      >
-        Search
-      </button>
-        <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8'>
+
+        <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 text-center'>
           {
             books.map(book => <Card>
               <img src={book.imageURL} alt="" className='h-96' />
               <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 <p>
-                  {book.bookTitle}
+                  {book.bookTitle} 
                 </p>
               </h5>
+              <h6 className="font-bold">{book.authorName}</h6>
               <p className="font-normal text-gray-700 dark:text-gray-400">
                 <p>
                 {book.bookDescription}
