@@ -10,7 +10,7 @@ const OtherBooks = () => {
 
     return (
         <div className='mt-24'>
-            <BookCards books={books} headline={"Other Books"} />
+            <div className='text-red-700'><BookCards books={books} headline={"Other Books"} /></div>
         </div>
     )
 }

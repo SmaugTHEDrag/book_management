@@ -57,8 +57,8 @@ const BookCards = ({headline, books}) => {
 
                                 <div className='mt-5 mb-8 text-left space-y-2 flex justify-between items-start'>
                                     <div>
-                                        <h3 className='text-black font-semibold'>{book.bookTitle}</h3>
-                                        <p>{book.authorName}</p>
+                                        <h3 className='text-black font-bold'>{book.bookTitle}</h3>
+                                        <p className='text-black'>{book.authorName}</p>
                                     </div>
                                     <div>
                                         <p className='font-bold text-blue-700'>$10.00</p>

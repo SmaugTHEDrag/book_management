@@ -14,7 +14,6 @@ const SideBar = () => {
     <div className=''>
       <Sidebar aria-label="Sidebar with content separator example" className='hidden md:block'>
         <Sidebar.Logo
-          img={ img}
           className='w-10 h-10 rounded-full'
           imgAlt="Flowbite logo"
         >
@@ -65,7 +64,7 @@ const SideBar = () => {
               icon={HiShoppingBag}
             >
               <p>
-                Products
+                Cart
               </p>
             </Sidebar.Item>
             <Sidebar.Item
