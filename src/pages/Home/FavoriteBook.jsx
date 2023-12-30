@@ -8,7 +8,7 @@ const FavoriteBook = () => {
             <img src={"https://i.pinimg.com/564x/f2/13/ef/f213ef6fed6d4b166ef94bec742bd86c.jpg"} alt="" className='rounded md:w-10/12' />
         </div>
         <div className='space-y-6 md:w-1/2'>
-            <h2 className='text-5xl my-5 font-bold md:w-3/4 leading-snug'>Find Your Favorite <span className='text-blue-600'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Book Here!</span></h2>
+            <h2 className='text-5xl my-5 font-bold md:w-3/4 leading-snug'>Find Your Favorite <span className='text-red-600'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Book Here!</span></h2>
             <p className='mb-10 text-lg md:w-5/6'>websites or platforms to encourage users to explore and discover books. It suggests that the platform or service being referred to has a variety of books, and users can search or browse to find their favorite ones.</p>
             <div className='flex flex-col sm:flex-row justify-between gap-6 md:w-3/4 my-14'>
               <div>
