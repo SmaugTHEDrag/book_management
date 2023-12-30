@@ -1,6 +1,7 @@
 
 import { Sidebar } from 'flowbite-react';
 import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiSupport, HiTable, HiUser, HiViewBoards, HiOutlineCloudUpload } from 'react-icons/hi';
+import { RiArrowGoBackFill } from "react-icons/ri";
 import img from '../../src/assets/profile.jpg'
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
@@ -88,20 +89,13 @@ const SideBar = () => {
           </Sidebar.ItemGroup>
           <Sidebar.ItemGroup>
             <Sidebar.Item
-              href="#"
-              icon={HiChartPie}
+              icon={RiArrowGoBackFill}
             >
+              <Link to ="/">
               <p>
-                Upgrade to Pro
+                Return to web
               </p>
-            </Sidebar.Item>
-            <Sidebar.Item
-              href="#"
-              icon={HiViewBoards}
-            >
-              <p>
-                Documentation
-              </p>
+              </Link>
             </Sidebar.Item>
             <Sidebar.Item
               href="#"
