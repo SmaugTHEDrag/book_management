@@ -12,7 +12,7 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 
 // react icons
-import {FaCartShopping} from "react-icons/fa6"
+import { FaPlusCircle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 const BookCards = ({headline, books}) => {
@@ -50,18 +50,17 @@ const BookCards = ({headline, books}) => {
                             <Link to={`/book/${book._id}`} className='cursor-pointer'>
                                 <div className='bg-gray-100 p-8 rounded-lg relative'>
                                     <img src={book.imageURL} alt="" className='w-full' />
-                                    <div className='absolute top-3 right-3 bg-blue-700 hover:bg-black p-2 rounded '>
-                                        <FaCartShopping className='w-4 h-4 text-white'/>
+                                    <div className='absolute top-3 right-3 bg-red-600 hover:bg-black p-2 rounded '>
+                                        <FaPlusCircle className='w-4 h-4 text-white'/>
                                     </div>
                                 </div>
 
-                                <div className='mt-5 mb-8 text-left space-y-2 flex justify-between items-start'>
+                                <div className='mt-5 mb-8 text-left space-y-2 flex justify-center items-start'>
                                     <div>
                                         <h3 className='text-black font-bold'>{book.bookTitle}</h3>
                                         <p className='text-black'>{book.authorName}</p>
                                     </div>
                                     <div>
-                                        <p className='font-bold text-blue-700'>$10.00</p>
                                     </div>
                                 </div>
                             </Link>

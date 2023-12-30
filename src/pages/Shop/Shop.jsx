@@ -59,7 +59,7 @@ export default function Shop() {
                 </p>
               </p>
 
-              <button className='px-4 py-2 bg-blue-600 text-white rounded'>+ Add To Cart</button>
+              <button className='px-4 py-2 bg-blue-600 text-white rounded'>+ Add</button>
             </Card>)
           }
         </div>

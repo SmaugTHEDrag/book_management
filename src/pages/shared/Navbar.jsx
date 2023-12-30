@@ -32,9 +32,9 @@ const Navbar = () => {
     const navItems = [
         { link: "Home", path: "/" },
         { link: "About", path: "/about" },
-        { link: "Shop", path: "/shop" },
-        { link: "Sell Your Book", path: "/admin/dashboard" },
+        { link: "Library", path: "/shop" },
         { link: "Blog", path: "/blog" },
+        { link: "Menu", path: "/admin/dashboard" },
     ];
     return (
         <header className="w-full bg-transparent fixed top-0 left-0 right-0 transition-all ease-in duration-300">
@@ -52,9 +52,7 @@ const Navbar = () => {
                         }
                     </ul>
 
-                    <div className="space-x-12 hidden lg:flex items-center">
-                       <button> <FaBarsStaggered className="w-5 hover:text-blue-700" /></button>
-                    </div>
+                    <div className="space-x-12 hidden lg:flex items-center"></div>
 
                     {/* menu btn, visible on mobile screen */}
                     <div className="md:hidden">

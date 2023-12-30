@@ -12,7 +12,7 @@ export const Banner = () => {
 
                 {/* left side */}
                 <div className='md:w-1/2 space-y-8 bg-yellow-100'>
-                    <h1 className='lg:text-6xl text-5xl font-bold text-black mb-5 lg:leading-tight leading-snug'>Buy and sell your books <span className='text-red-600'>for the best prices</span></h1>
+                    <h1 className='lg:text-6xl text-5xl font-bold text-black mb-5 lg:leading-tight leading-snug'>Rent and enjoy books <span className='text-red-600'>for the best experience</span></h1>
                     <p>Find and read more books you'll love, and keep track of the books you want to read. Be part of the world's largest community of book lovers on Goodreads.</p>
                 </div>
             </div>
