@@ -52,7 +52,7 @@ export default function Shop() {
                   {book.bookTitle} 
                 </p>
               </h5>
-              <h6 className="font-bold">{book.authorName}</h6>
+              <h6 className="font-medium">{book.authorName}</h6>
               <p className="font-normal text-gray-700 dark:text-gray-400">
                 <p>
                 {book.bookDescription}
