@@ -26,7 +26,6 @@ export default function Shop() {
       </div>
   }
 
-
   return (
     <div className='my-20 px-4 lg:px-24'>
       <h2 className='text-3xl font-bold text-center mb-7 z-40'>All Books are Available Here</h2>
