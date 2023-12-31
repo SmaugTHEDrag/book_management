@@ -15,7 +15,7 @@ import Logout from "../pages/Logout";
 import ErrorPage from "../pages/shared/ErrorPage";
 import About from "../pages/about/About";
 import Blog from "../pages/blog/Blog";
-
+import Favorite from "../Dashboard/Favorite";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -52,6 +52,7 @@ const router = createBrowserRouter([
       { path: "/admin/dashboard", element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>},
       { path: "/admin/dashboard/upload", element: <UploadBook /> },
       { path: "/admin/dashboard/manage", element: <ManageBooks /> },
+      { path: "/admin/dashboard/favorite", element: <Favorite /> },
       { path: "/admin/dashboard/edit-books/:id", element: <EditBooks />,
       loader: ({ params }) => fetch(`https://book-management-4qw7.onrender.com/book/${params.id}`)
     },

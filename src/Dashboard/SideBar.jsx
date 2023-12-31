@@ -60,12 +60,13 @@ const SideBar = () => {
               </p>
             </Sidebar.Item>
             <Sidebar.Item
-              href="#"
               icon={HiShoppingBag}
             >
+              <Link to="/admin/dashboard/favorite">
               <p>
                 Favorite
               </p>
+              </Link>
             </Sidebar.Item>
             <Sidebar.Item
               icon={HiArrowSmRight}

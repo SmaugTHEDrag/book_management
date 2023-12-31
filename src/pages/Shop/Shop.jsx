@@ -25,10 +25,7 @@ export default function Shop() {
           <Spinner aria-label="Center-aligned spinner example" />
       </div>
   }
-  const handleSearch = () => {
-    // Fetch and filter books when the search button is clicked
-    fetchData();
-  };
+
 
   return (
     <div className='my-20 px-4 lg:px-24'>
