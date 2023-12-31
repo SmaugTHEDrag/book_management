@@ -1,34 +1,40 @@
-import React, { useState } from 'react';
+import { Table } from 'flowbite-react';
+import React, { useEffect, useState } from 'react';
+import { Pagination } from 'flowbite-react';
+import { Link } from 'react-router-dom';
 
-const useFavorite = () => {
-  const [favoriteBooks, setFavoriteBooks] = useState([]);
-
-  const addToFavorites = (book) => {
-    // Check if the book is not already in favorites
-    if (!favoriteBooks.some((favBook) => favBook._id === book._id)) {
-      setFavoriteBooks((prevFavorites) => [...prevFavorites, book]);
-    }
-  };
-
-  return {
+const Favorite = ({
     favoriteBooks,
-    addToFavorites,
-  };
-};
+    setFavoriteBooks,
+    currentPage,
+    setCurrentPage,
+    booksPerPage
+}) => {
 
-const Favorite = () => {
-  const { favoriteBooks, addToFavorites } = useFavorite();
+    const addToFavorites = (book) => {
+        // Add the selected book to the favorites state
+        setFavoriteBooks((prevBooks) => [...prevBooks, book]);
+    };
 
-  return (
-    <div>
-      <h2>My Favorite Books</h2>
-      {/* Render your favorite books here */}
-      {favoriteBooks.map((favBook) => (
-        <div key={favBook._id}>
-          <p>{favBook.bookTitle}</p>
-          {/* Add other book details as needed */}
+    // ... (existing code)
+
+    return (
+        <div className='px-4 my-12'>
+            {/* ... (existing code) */}
+            {/* Pagination */}
+            <div className="flex items-center justify-center text-center mt-8">
+                <Pagination
+                    currentPage={currentPage}
+                    layout="pagination"
+                    nextLabel="Go forward"
+                    onPageChange={(page) => setCurrentPage(page)}
+                    previousLabel="Go back"
+                    showIcons
+                    totalPages={Math.ceil(favoriteBooks.length / booksPerPage)}
+                />
+            </div>
         </div>
-      ))}
-    </div>
-  );
+    );
 };
+
+export default Favorite;
