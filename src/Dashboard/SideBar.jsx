@@ -64,7 +64,7 @@ const SideBar = () => {
               icon={HiShoppingBag}
             >
               <p>
-                Cart
+                Favorite
               </p>
             </Sidebar.Item>
             <Sidebar.Item
