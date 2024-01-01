@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Checkbox, Label, Select, TextInput, Textarea } from 'flowbite-react';
 import { useLoaderData, useParams } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 const EditBooks = () => {
   const { id } = useParams();
   const { bookTitle, authorName, imageURL, category, bookDescription, bookPDFURL } = useLoaderData();
@@ -29,17 +29,13 @@ const EditBooks = () => {
     "Art and design",
   ];
 
-  const [selectedBookCategory, setSelectedBookCategory] = useState(
-    bookCategories[0]
-  );
+  const [selectedBookCategory, setSelectedBookCategory] = useState(bookCategories[0]);
 
   const handleChangeSelectedValue = (event) => {
-    console.log(event.target.value);
     setSelectedBookCategory(event.target.value);
   };
 
-
-  const  handleUpdate = (event) => {
+  const handleUpdate = (event) => {
     event.preventDefault();
     const form = event.target;
 
@@ -58,21 +54,37 @@ const EditBooks = () => {
       bookDescription,
       bookPDFURL,
     };
-    // console.log(bookObj)
 
-    // update the book object
+    // Update the book object
     fetch(`https://book-management-4qw7.onrender.com/book/${id}`, {
       method: "PATCH",
-
       headers: {
         "Content-type": "application/json",
       },
-
       body: JSON.stringify(bookObj),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+      })
+      .catch((error) => {
+        console.error('Error updating book:', error);
+      });
+
+    // Update the favorite book object
+    fetch(`https://book-management-4qw7.onrender.com/favorite-book/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(bookObj),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('Error updating favorite book:', error);
       });
   };
   
@@ -213,7 +225,7 @@ const EditBooks = () => {
 
           {/* Submit btn */}
           <Button type="submit" className='mt-5'>
-            Upload book
+          <Link to ='/admin/dashboard/manage'>Upload book</Link>
           </Button>
         </form>
       </div>

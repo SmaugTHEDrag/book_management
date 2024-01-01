@@ -2,15 +2,32 @@ import { Table } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
 import { Pagination } from 'flowbite-react';
 import { Link } from 'react-router-dom';
-import Favorite from './Favorite';
+
 const ManageBooks = () => {
-    const handleAddToFavorite = (book) => {
-        // Set the selected book when "Add to Favorite" is clicked
-        setSelectedBook(book);
-        // Call the addToFavorites function from Favorite.jsx and pass the selected book
-        Favorite.addToFavorites(book);
-    };
-    const [selectedBook, setSelectedBook] = useState(null);  
+const handleAddToFavorite = (book) => {
+  // Send a request to add the book to the favorite books in the database
+  fetch(`https://book-management-4qw7.onrender.com/upload-favorite-book`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify( book ), // Sending the bookId in the request body
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`Failed to add book to favorites: ${res.status} ${res.statusText}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      // Handle the response data if needed
+      console.log(data);
+    })
+    .catch((error) => {
+      // Handle errors
+      console.error('Error adding book to favorites:', error);
+    });
+};
 
     const booksPerPage = 10;
     const [allBooks, setAllBooks] = useState([]);
@@ -63,7 +80,6 @@ const ManageBooks = () => {
                     <Table.HeadCell>
                         Category
                     </Table.HeadCell>
-
                     <Table.HeadCell>
                         Edit or Manage
                     </Table.HeadCell>
@@ -111,7 +127,6 @@ const ManageBooks = () => {
                     totalPages={Math.ceil(allBooks.length / booksPerPage)}
                 />
             </div>
-            {selectedBook && <Favorite selectedBook={selectedBook} />}
         </div>
     )
 }
