@@ -7,16 +7,20 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthProvider';
 import MobileDashboard from './MobileDashboard';
-
+import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 const SideBar = () => {
   const {user} = useContext(AuthContext)
   return (
     <div className=''>
-      <Sidebar aria-label="Sidebar with content separator example" className='hidden md:block'>
+      <Sidebar aria-label="Sidebar with content separator example" className='hidden md:block '>
         <Sidebar.Logo
           className='w-10 h-10 rounded-full'
           imgAlt="Flowbite logo"
-        >
+        ><Dropdown
+        arrowIcon={false}
+        inline
+        label={<Avatar alt="User settings" img="" rounded/>}
+      />
           <Link to ="/">
           <p>
             {user?.displayName || "Demo User" }

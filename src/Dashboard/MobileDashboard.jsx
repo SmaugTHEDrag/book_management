@@ -12,14 +12,14 @@ const MobileDashboard = () => {
     >
       <Navbar.Brand href="/">
         <span className="self-center whitespace-nowrap text-3xl font-bold text-blue-700 flex items-center gap-2">
-        <FaBlog className="inline-block"/>Books
+        
         </span>
       </Navbar.Brand>
       <div className="flex gap-10">
         <Dropdown
           arrowIcon={false}
           inline
-          label={<Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded/>}
+          label={<Avatar alt="User settings" img="  " rounded/>}
         >
           <Dropdown.Header>
             <span className="block text-sm">
