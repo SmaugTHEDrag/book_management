@@ -2,9 +2,16 @@ import { Table } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
 import { Pagination } from 'flowbite-react';
 import { Link } from 'react-router-dom';
-
+import Favorite from './Favorite';
 const ManageBooks = () => {
-    
+    const handleAddToFavorite = (book) => {
+        // Set the selected book when "Add to Favorite" is clicked
+        setSelectedBook(book);
+        // Call the addToFavorites function from Favorite.jsx and pass the selected book
+        Favorite.addToFavorites(book);
+    };
+    const [selectedBook, setSelectedBook] = useState(null);  
+
     const booksPerPage = 10;
     const [allBooks, setAllBooks] = useState([]);
     useEffect(() => {
@@ -56,9 +63,7 @@ const ManageBooks = () => {
                     <Table.HeadCell>
                         Category
                     </Table.HeadCell>
-                    <Table.HeadCell>
-                        Price
-                    </Table.HeadCell>
+
                     <Table.HeadCell>
                         Edit or Manage
                     </Table.HeadCell>
@@ -80,9 +85,6 @@ const ManageBooks = () => {
                                 {book.category}
                             </Table.Cell>
                             <Table.Cell>
-                                $10.99
-                            </Table.Cell>
-                            <Table.Cell>
                                 <Link
                                     className="font-medium text-cyan-600 hover:underline dark:text-cyan-500 mr-5"
                                     to={`/admin/dashboard/edit-books/${book._id}`}
@@ -90,7 +92,7 @@ const ManageBooks = () => {
                                     Edit
                                 </Link>
                                 <button className='bg-red-600 px-4 py-1 font-semibold text-white rounded-sm hover:bg-sky-600' onClick={() => handleDelete(book._id)}>Delete</button>
-
+                                <button className='px-4 py-1 bg-blue-600 font-semibold text-white rounded-sm hover:bg-sky-600'onClick={() => handleAddToFavorite(book)}>Add to Favorites</button>
                             </Table.Cell>
                         </Table.Row>
                     </Table.Body>)
@@ -109,6 +111,7 @@ const ManageBooks = () => {
                     totalPages={Math.ceil(allBooks.length / booksPerPage)}
                 />
             </div>
+            {selectedBook && <Favorite selectedBook={selectedBook} />}
         </div>
     )
 }

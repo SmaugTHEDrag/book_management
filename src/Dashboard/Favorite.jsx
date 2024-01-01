@@ -1,40 +1,35 @@
-import { Table } from 'flowbite-react';
-import React, { useEffect, useState } from 'react';
-import { Pagination } from 'flowbite-react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 
-const Favorite = ({
+const useFavorite = () => {
+  const [favoriteBooks, setFavoriteBooks] = useState([]);
+
+  const addToFavorites = (book) => {
+    // Check if the book is not already in favorites
+    if (!favoriteBooks.some((favBook) => favBook._id === book._id)) {
+      setFavoriteBooks((prevFavorites) => [...prevFavorites, book]);
+    }
+  };
+
+  return {
     favoriteBooks,
-    setFavoriteBooks,
-    currentPage,
-    setCurrentPage,
-    booksPerPage
-}) => {
-
-    const addToFavorites = (book) => {
-        // Add the selected book to the favorites state
-        setFavoriteBooks((prevBooks) => [...prevBooks, book]);
-    };
-
-    // ... (existing code)
-
-    return (
-        <div className='px-4 my-12'>
-            {/* ... (existing code) */}
-            {/* Pagination */}
-            <div className="flex items-center justify-center text-center mt-8">
-                <Pagination
-                    currentPage={currentPage}
-                    layout="pagination"
-                    nextLabel="Go forward"
-                    onPageChange={(page) => setCurrentPage(page)}
-                    previousLabel="Go back"
-                    showIcons
-                    totalPages={Math.ceil(favoriteBooks.length / booksPerPage)}
-                />
-            </div>
-        </div>
-    );
+    addToFavorites,
+  };
 };
 
-export default Favorite;
+const Favorite = () => {
+  const { favoriteBooks, addToFavorites } = useFavorite();
+
+  return (
+    <div>
+      <h2>My Favorite Books</h2>
+      {/* Render your favorite books here */}
+      {favoriteBooks.map((favBook) => (
+        <div key={favBook._id}>
+          <p>{favBook.bookTitle}</p>
+          {/* Add other book details as needed */}
+        </div>
+      ))}
+    </div>
+  );
+};
+export default Favorite
