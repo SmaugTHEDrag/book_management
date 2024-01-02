@@ -42,7 +42,7 @@ export default function Shop() {
       })
       .then((data) => {
         // Handle the response data if needed
-        console.log(data);
+        console.log('Book added successfully:',data);
       })
       .catch((error) => {
         // Handle errors
