@@ -15,30 +15,6 @@ import { Pagination } from 'swiper/modules';
 import { FaPlusCircle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
-const handleAddToFavorite = (book) => {
-    // Send a request to add the book to the favorite books in the database
-    fetch(`https://book-management-4qw7.onrender.com/upload-favorite-book`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify( book ), // Sending the bookId in the request body
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Failed to add book to favorites: ${res.status} ${res.statusText}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        // Handle the response data if needed
-        console.log(data);
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error('Error adding book to favorites:', error);
-      });
-  };
 const BookCards = ({headline, books}) => {
     return (
         <div className='my-16 px-4 lg:px-24'>
@@ -75,7 +51,9 @@ const BookCards = ({headline, books}) => {
                                 <div className='bg-gray-100 p-8 rounded-lg relative'>
                                     <img src={book.imageURL} alt="" className='w-full' />
                                     <div className='absolute top-3 right-3 bg-red-600 hover:bg-black p-2 rounded '>
-                                        <Link to="/admin/dashboard/favorite"><FaPlusCircle className='w-4 h-4 text-white'onClick={() => handleAddToFavorite(book)}/></Link>
+                                        <Link to="/admin/dashboard/favorite">
+                                            <Link to={`/admin/dashboard/edit-books/${book._id}`}><FaPlusCircle className='w-4 h-4 text-white'/></Link>
+                                        </Link>
                                     </div>
                                 </div>
 

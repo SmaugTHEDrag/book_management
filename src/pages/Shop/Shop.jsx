@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Card, Spinner } from 'flowbite-react';
 import { AuthContext } from '../../contexts/AuthProvider';
-
+import { Link } from 'react-router-dom';
 export default function Shop() {
   const {loading } = useContext(AuthContext);
   const [books, setBooks] = useState([]);
@@ -25,30 +25,6 @@ export default function Shop() {
           <Spinner aria-label="Center-aligned spinner example" />
       </div>
   }
-  const handleAddToFavorite = (book) => {
-    // Send a request to add the book to the favorite books in the database
-    fetch(`https://book-management-4qw7.onrender.com/upload-favorite-book`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify( book ), // Sending the bookId in the request body
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Failed to add book to favorites: ${res.status} ${res.statusText}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        // Handle the response data if needed
-        console.log('Book added successfully:',data);
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error('Error adding book to favorites:', error);
-      });
-  };
   return (
     <div className='my-20 px-4 lg:px-24'>
       <h2 className='text-3xl font-bold text-center mb-7 z-40'>All Books are Available Here</h2>
@@ -78,7 +54,7 @@ export default function Shop() {
                 </p>
               </p>
 
-              <button className='px-4 py-2 bg-blue-600 text-white rounded' onClick={() => handleAddToFavorite(book)}>+ Add</button>
+              <button className='px-4 py-2 bg-blue-600 text-white rounded'><Link to={`/admin/dashboard/edit-books/${book._id}`}>+ Add</Link></button>
             </Card>)
           }
         </div>
