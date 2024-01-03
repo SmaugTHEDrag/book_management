@@ -70,7 +70,7 @@ const Navbar = () => {
                 </div>
 
                 <div
-                    className={`space-y-4 px-4 mt-16 py-7 bg-red-700 ${isMenuOpen ? "block fixed top-0 right-0 left-0" : "hidden"}`}
+                    className={`space-y-4 px-4 mt-16 py-7 bg-black ${isMenuOpen ? "block fixed top-0 right-0 left-0" : "hidden"}`}
                 >
                     {
                         navItems.map(({ link, path }) => <a
