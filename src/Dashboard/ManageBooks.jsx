@@ -4,30 +4,6 @@ import { Pagination } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
 const ManageBooks = () => {
-const handleAddToFavorite = (book) => {
-  // Send a request to add the book to the favorite books in the database
-  fetch(`https://book-management-4qw7.onrender.com/upload-favorite-book`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify( book ), // Sending the bookId in the request body
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(`Failed to add book to favorites: ${res.status} ${res.statusText}`);
-      }
-      return res.json();
-    })
-    .then((data) => {
-      // Handle the response data if needed
-      console.log(data);
-    })
-    .catch((error) => {
-      // Handle errors
-      console.error('Error adding book to favorites:', error);
-    });
-};
 
     const booksPerPage = 10;
     const [allBooks, setAllBooks] = useState([]);
@@ -105,10 +81,10 @@ const handleAddToFavorite = (book) => {
                                     className="font-medium text-cyan-600 hover:underline dark:text-cyan-500 mr-5"
                                     to={`/admin/dashboard/edit-books/${book._id}`}
                                 >
-                                    Edit
+                                    Edit    
                                 </Link>
                                 <button className='bg-red-600 px-4 py-1 font-semibold text-white rounded-sm hover:bg-sky-600' onClick={() => handleDelete(book._id)}>Delete</button>
-                                <button className='px-4 py-1 bg-blue-600 font-semibold text-white rounded-sm hover:bg-sky-600'onClick={() => handleAddToFavorite(book)}>Add to Favorites</button>
+                                <Link to={`/admin/dashboard/edit-books/${book._id}`}><button className='px-4 py-1 bg-blue-600 font-semibold text-white rounded-sm hover:bg-sky-600'>Add to Favorites</button></Link>
                             </Table.Cell>
                         </Table.Row>
                     </Table.Body>)
