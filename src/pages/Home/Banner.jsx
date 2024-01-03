@@ -6,16 +6,25 @@ export const Banner = () => {
         <div className=' bg-yellow-100  px-4 lg:px-24 flex items-center'>
             <div className='flex flex-col md:flex-row-reverse justify-between items-center gap-15 py-20'>
                 {/* right side */}
-                <div className='md:w-1/2 h-full'>
+                <div className='md:w-1/3'>
                     <BannerCard />
+                    
                 </div>
 
-                {/* left side */}
-                <div className='md:w-1/2 space-y-8 bg-yellow-100'>
-                    <h1 className='lg:text-6xl text-5xl font-bold text-black mb-5 lg:leading-tight leading-snug'>Rent and enjoy books <span className='text-red-600'>for the best experience</span></h1>
-                    <p>Find and read more books you'll love, and keep track of the books you want to read. Be part of the world's largest community of book lovers on Goodreads.</p>
+                {/* center text */}
+                <div className='md:w-1/3 space-y-8 text-center bg-yellow-100'>
+                   <h1 className='lg:text-6xl text-5xl font-bold text-black mb-5 lg:leading-tight leading-snug'>
+                    Rent and enjoy books{'                                                   '}
+                   <span className='text-red-600'>for the best experience</span>
+                   </h1>
+                     <p>Find and read more books you'll love, and keep track of the books you want to read. Be part of the world's largest community of book lovers on Goodreads.</p>
+                </div>
+
+                <div className='md:w-1/3'>
+                    <BannerCard />
                 </div>
             </div>
         </div>
     )
 }
+

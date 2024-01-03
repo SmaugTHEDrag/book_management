@@ -37,7 +37,7 @@ const Navbar = () => {
         { link: "Menu", path: "/admin/dashboard" },
     ];
     return (
-        <header className="w-full bg-transparent fixed top-0 left-0 right-0 transition-all ease-in duration-300">
+        <header className="w-full bg-transparent fixed top-0 left-0 right-0 transition-all ease-in duration-300 text-bold">
             <nav className={`py-4 lg:px-24 px-4 ${isSticky ? "sticky top-0 left-0 right-0 bg-blue-300" : ""
                 }`}>
                 <div className="flex justify-between items-center text-base gap-8">
@@ -46,7 +46,7 @@ const Navbar = () => {
                     <ul className="md:flex space-x-12 hidden navitems">
 
                         {
-                            navItems.map(({ link, path }) => <Link key={link} to={path}  className="link block text-base cursor-pointer uppercase text-black hover:text-blue-700">
+                            navItems.map(({ link, path }) => <Link key={link} to={path}  className="link block text-base cursor-pointer uppercase text-black text-bold hover:text-blue-700">
                                 {link}
                             </Link>)
                         }
