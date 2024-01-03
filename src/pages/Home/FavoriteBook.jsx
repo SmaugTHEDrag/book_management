@@ -12,15 +12,15 @@ const FavoriteBook = () => {
             <p className='mb-10 text-lg md:w-5/6'>websites or platforms to encourage users to explore and discover books. It suggests that the platform or service being referred to has a variety of books, and users can search or browse to find their favorite ones.</p>
             <div className='flex flex-col sm:flex-row justify-between gap-6 md:w-3/4 my-14'>
               <div>
-                <h3 className='text-3xl font-bold '>800+</h3>
+                <h3 className='text-3xl font-bold '>100+</h3>
                 <p className='text-base'>Book Listing</p>
               </div>
               <div>
-                <h3 className='text-3xl font-bold '>550+</h3>
+                <h3 className='text-3xl font-bold '>50+</h3>
                 <p className='text-base'>Regsiter User</p>
               </div>
               <div>
-                <h3 className='text-3xl font-bold '>1200+</h3>
+                <h3 className='text-3xl font-bold '>100+</h3>
                 <p className='text-base'>Pdf Downloaded</p>
               </div>
             </div>
