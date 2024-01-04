@@ -34,7 +34,7 @@ const Review = () => {
       rating: 5,
       text: 'Outstanding! Will definitely come back.',
       author: 'lPheul',
-      company: 'Student(gay), ANTI LGBT Social',
+      company: 'Leader(gay), ANTI LGBT Social',
       img: 'https://cdn.discordapp.com/attachments/984481824065617952/1100315740420198410/339301656_3309074886010779_5177668617428147388_n.jpg',
     },
     {
