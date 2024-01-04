@@ -2,7 +2,7 @@ import { Table } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
 import { Pagination } from 'flowbite-react';
 import { Link } from 'react-router-dom';
-
+import { FaRegHeart } from "react-icons/fa6";
 const ManageBooks = () => {
 
     const booksPerPage = 10;
@@ -84,7 +84,7 @@ const ManageBooks = () => {
                                     Edit    
                                 </Link>
                                 <button className='bg-red-600 px-4 py-1 font-semibold text-white rounded-sm hover:bg-sky-600' onClick={() => handleDelete(book._id)}>Delete</button>
-                                <Link to={`/admin/dashboard/edit-books/${book._id}`}><button className='px-4 py-1 bg-blue-600 font-semibold text-white rounded-sm hover:bg-sky-600'>Add to Favorites</button></Link>
+                                <Link to={`/admin/dashboard/edit-books/${book._id}`}><button className='px-4 py-1 bg-white font-semibold text-black hover: text-black'><FaRegHeart /></button></Link>
                             </Table.Cell>
                         </Table.Row>
                     </Table.Body>)
