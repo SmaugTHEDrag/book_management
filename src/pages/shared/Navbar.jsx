@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // import icons from react icons
 import { FaXmark, FaBars, FaBarsStaggered, FaBlog } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-
+import { LuBookmarkPlus } from "react-icons/lu";
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
@@ -35,6 +35,7 @@ const Navbar = () => {
         { link: "Library", path: "/shop" },
         { link: "Blog", path: "/blog" },
         { link: "Menu", path: "/admin/dashboard" },
+        { link: <LuBookmarkPlus />, path: "/admin/dashboard/favorite"}
     ];
     return (
         <header className="w-full bg-transparent fixed top-0 left-0 right-0 transition-all ease-in duration-300 text-bold">
