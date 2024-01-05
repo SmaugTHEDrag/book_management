@@ -54,16 +54,16 @@ const MobileDashboard = () => {
             Home
           </p>
         </Navbar.Link>
-        <Navbar.Link href="/admin/dashboard">
+        <Navbar.Link Link="/admin/dashboard">
         Dashboard
         </Navbar.Link>
-        <Navbar.Link href="/admin/dashboard/upload">
+        <Navbar.Link Link="/admin/dashboard/upload">
           Upload Book
         </Navbar.Link>
-        <Navbar.Link href="/admin/dashboard/manage">
+        <Navbar.Link Link="/admin/dashboard/manage">
           Manage Books
         </Navbar.Link>
-        <Navbar.Link href="logout">
+        <Navbar.Link Link="logout">
           Signout
         </Navbar.Link>
       </Navbar.Collapse>
