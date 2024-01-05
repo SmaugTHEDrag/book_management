@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import {FaBlog } from "react-icons/fa6";
-
+import { Link } from 'react-router-dom';
 const MobileDashboard = () => {
   return (
     <div className='px-4'>
@@ -54,17 +54,17 @@ const MobileDashboard = () => {
             Home
           </p>
         </Navbar.Link>
-        <Navbar.Link Link="/admin/dashboard">
-        Dashboard
+        <Navbar.Link> <Link to="/admin/dashboard">
+        Dashboard</Link>
         </Navbar.Link>
-        <Navbar.Link Link="/admin/dashboard/upload">
-          Upload Book
+        <Navbar.Link> <Link to="/admin/dashboard/upload">
+          Upload Book</Link>
         </Navbar.Link>
-        <Navbar.Link Link="/admin/dashboard/manage">
-          Manage Books
+        <Navbar.Link> <Link to="/admin/dashboard/manage">
+          Manage Books</Link>
         </Navbar.Link>
-        <Navbar.Link Link="logout">
-          Signout
+        <Navbar.Link> <Link to ="logout">
+          Signout</Link>
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
