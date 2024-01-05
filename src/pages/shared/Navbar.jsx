@@ -75,7 +75,7 @@ const Navbar = () => {
                 >
                     {
                         navItems.map(({ link, path }) => <a
-                            href={path} 
+                            Link={path} 
                             key={link}
                             onClick={toggleMenu}
                             className="block text-white hover:text-gray-500"
