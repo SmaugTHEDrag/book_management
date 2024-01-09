@@ -2,6 +2,7 @@ import { Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { Pagination } from 'flowbite-react';
 import { Link } from 'react-router-dom';
+import resume from '../assets/Library.pdf';
 import { FaDownload } from "react-icons/fa";
 const Favorite = () => {
   const booksPerPage = 10;
@@ -71,7 +72,7 @@ const Favorite = () => {
               <Table.Cell>
               <Link className="font-medium text-cyan-600 hover:underline dark:text-cyan-500 mr-5" to={`/admin/dashboard/edit-books/${book._id}`}>Edit</Link>
               <button className='bg-red-600 px-4 py-1 font-semibold text-white rounded-sm hover:bg-sky-600 mr-5' onClick={() => handleDelete(book._id)}>Delete</button>
-              <Link className='font-medium text-cyan-600 hover:underline dark:text-cyan-500' >Download</Link>
+              <a className='font-medium text-cyan-600 hover:underline dark:text-cyan-500' href={resume} download>Download</a>
               </Table.Cell>
             </Table.Row>
           </Table.Body>
