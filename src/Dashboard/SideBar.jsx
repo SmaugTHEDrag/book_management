@@ -58,12 +58,11 @@ const SideBar = () => {
             <Sidebar.Item
               icon={HiUser}
             >
-              <Link to ="/">
+              <a href={'https://console.firebase.google.com/project/library-management-e0fe1/authentication/users'} target="_blank">
               <p>
-                
                 Users
               </p>
-              </Link>
+              </a>
             </Sidebar.Item>
             <Sidebar.Item
               icon={HiShoppingBag}
