@@ -225,7 +225,7 @@ const EditBooks = () => {
 
           {/* Submit btn */}
           <Button type="submit" className='mt-5'>
-          <Link to ='/admin/dashboard/manage'>Upload book</Link>
+          <Link to ='/admin/dashboard/favorite'>Upload book</Link>
           </Button>
         </form>
       </div>

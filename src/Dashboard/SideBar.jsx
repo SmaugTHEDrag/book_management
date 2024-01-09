@@ -2,7 +2,6 @@
 import { Sidebar } from 'flowbite-react';
 import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiSupport, HiTable, HiUser, HiViewBoards, HiOutlineCloudUpload } from 'react-icons/hi';
 import { RiArrowGoBackFill } from "react-icons/ri";
-import img from '../../src/assets/profile.jpg'
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthProvider';
@@ -23,7 +22,7 @@ const SideBar = () => {
       />
           <Link to ="/">
           <p>
-            {user?.displayName || "Demo User" }
+            {user?.displayName}
           </p>
           </Link>
         </Sidebar.Logo>
