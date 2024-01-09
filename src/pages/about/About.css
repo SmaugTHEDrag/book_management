@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+
+*{
+    font-family: "Times New Roman", Times, serif;
+}
+.section-padding{
+  padding:5% 0 0% 3%;
+}
+.team-title-wrap{
+    font-size:50px;
+}
+.team-wrap .team-member-listing {
+    margin: 0;
+    padding: 3%;
+    text-align: center;
+    list-style: none;
+}
+.team-wrap .team-member-listing .team-member-listing-item{
+    display: inline-block;
+    width: 18%;
+    margin: 0 1%;
+}
+.team-wrap .team-member-listing .team-member-listing-item .team-member-img-wrap img {
+    width: 300px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+    object-position: top;
+    filter: grayscale(1);
+    transition: all 500ms ease-in-out;
+}
+.team-wrap .team-member-listing .team-member-listing-item:hover img{
+  filter: grayscale(0);
+}
+.team-wrap .team-member-listing .team-member-listing-item .team-member-info-wrap p {
+    font-weight: 600;
+    padding-top: 10px;
+}
+.team-wrap .team-member-listing .team-member-listing-item .team-member-info-wrap{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+}
+
+/* Start Media query */
+@media screen and (max-width:991px) and (min-width:768px){
+
+    .team-wrap .team-member-listing .team-member-listing-item {
+        width: 30%;
+        padding: 0 15px;
+        margin: 0px 0 30px;
+    }
+    .team-wrap .team-member-listing .team-member-listing-item .team-member-info-wrap:before{
+        display: none;
+    }
+}
+ 
+@media screen and (max-width:767px) and (min-width:426px){
+    .team-wrap .team-member-listing .team-member-listing-item {
+        width: 49%;
+        margin-bottom: 30px;
+    }
+    .team-wrap .team-member-listing .team-member-listing-item .team-member-info-wrap:before{
+        display: none;
+    }
+}
+@media screen and (max-width:425px) and (min-width:320px){
+    .team-wrap .team-member-listing .team-member-listing-item {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .team-wrap .team-member-listing .team-member-listing-item .team-member-info-wrap:before{
+        display: none;
+    }
+}
+
+/* End Media query */

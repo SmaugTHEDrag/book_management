@@ -56,12 +56,14 @@ const SideBar = () => {
               </Link>
             </Sidebar.Item>
             <Sidebar.Item
-              href="#"
               icon={HiUser}
             >
+              <Link to ="/">
               <p>
+                
                 Users
               </p>
+              </Link>
             </Sidebar.Item>
             <Sidebar.Item
               icon={HiShoppingBag}
