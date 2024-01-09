@@ -52,7 +52,7 @@ const router = createBrowserRouter([
       { path: "/admin/dashboard", element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>},
       { path: "/admin/dashboard/upload", element: <UploadBook /> },
       { path: "/admin/dashboard/manage", element: <ManageBooks /> },
-      { path: "/admin/dashboard/favorite", element: <Favorite /> },
+      { path: "/admin/dashboard/favorite", element: <PrivateRoute><Favorite /></PrivateRoute> },
       { path: "/admin/dashboard/edit-books/:id", element: <EditBooks />,
       loader: ({ params }) => fetch(`https://book-management-4qw7.onrender.com/book/${params.id}`)
     },
