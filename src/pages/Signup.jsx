@@ -15,7 +15,7 @@ const Signup = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const from = location.state?.from?.pathname || 'login';
+    const from = location.state?.from?.pathname || '/login';
 
     // login with google
     const handleRegister = () => {
