@@ -72,7 +72,7 @@ const Favorite = () => {
               <Table.Cell>
               <Link className="font-medium text-cyan-600 hover:underline dark:text-cyan-500 mr-5" to={`/admin/dashboard/edit-books/${book._id}`}>Edit</Link>
               <button className='bg-red-600 px-4 py-1 font-semibold text-white rounded-sm hover:bg-sky-600 mr-5' onClick={() => handleDelete(book._id)}>Delete</button>
-              <a className='font-medium text-cyan-600 hover:underline dark:text-cyan-500' href={resume} download>Download</a>
+              <a className='font-medium text-cyan-600 hover:underline dark:text-cyan-500' href={'https://aqua-jaquelin-36.tiiny.site/'} target ="_blank"  download>Download</a>
               </Table.Cell>
             </Table.Row>
           </Table.Body>
