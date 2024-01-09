@@ -34,7 +34,7 @@ const Navbar = () => {
         { link: "About", path: "/about" },
         { link: "Library", path: "/shop" },
         { link: "Blog", path: "/blog" },
-        { link: "Menu", path: "/admin/dashboard" },
+        { link: "Menu", path: "/admin/dashboard/favorite" },
         { link: <LuBookmarkPlus />, path: "/admin/dashboard/favorite"}
     ];
     return (
