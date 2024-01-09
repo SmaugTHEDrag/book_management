@@ -30,41 +30,6 @@ const SideBar = () => {
         <Sidebar.Items>
           <Sidebar.ItemGroup>
             <Sidebar.Item
-              icon={HiChartPie}>
-              <Link to="/admin/dashboard">
-              <p>
-                Dashboard
-              </p>
-              </Link>
-            </Sidebar.Item>
-            <Sidebar.Item
-              icon={HiOutlineCloudUpload}>
-              <Link to="/admin/dashboard/upload">
-              <p>
-                Upload Book
-              </p>
-              </Link>
-            </Sidebar.Item>
-
-            <Sidebar.Item
-              icon={HiInbox}
-            >
-              <Link to="/admin/dashboard/manage">
-              <p>
-                ManageBooks
-              </p>
-              </Link>
-            </Sidebar.Item>
-            <Sidebar.Item
-              icon={HiUser}
-            >
-              <a href={'https://console.firebase.google.com/project/library-management-e0fe1/authentication/users'} target="_blank">
-              <p>
-                Users
-              </p>
-              </a>
-            </Sidebar.Item>
-            <Sidebar.Item
               icon={HiShoppingBag}
             >
               <Link to="/admin/dashboard/favorite">
@@ -101,14 +66,6 @@ const SideBar = () => {
                 Return to web
               </p>
               </Link>
-            </Sidebar.Item>
-            <Sidebar.Item
-              href="#"
-              icon={HiSupport}
-            >
-              <p>
-                Help
-              </p>
             </Sidebar.Item>
           </Sidebar.ItemGroup>
         </Sidebar.Items>
