@@ -76,14 +76,6 @@ export default function Login() {
                             </form>
                         </div>
                     </div>
-
-                    {/* social login */}
-                    <div>
-                        <hr />
-                        <div className="flex w-full items-center flex-col mt-5 gap-3">
-                            <button onClick={handleRegister} className='block'> <img src={googleLogo} alt="" className='w-12 h-12 inline-block' />Log in with Google</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

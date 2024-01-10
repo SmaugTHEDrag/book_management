@@ -41,7 +41,7 @@ const About = () => (
               />
               <TeamMember
                 name="Lê Văn Hùng"
-                imageSrc="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+                imageSrc="https://cdn.discordapp.com/attachments/1081069042212798545/1194627484092747776/IMG_9623.png?ex=65b10a8b&is=659e958b&hm=d1e056bc7489a3496eb335fcc04b79b43d2ba7cb2550089bdd8cb8c568723a65&"
               />
             </ul>
           </div>
