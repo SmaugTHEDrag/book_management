@@ -24,16 +24,16 @@ const About = () => (
               {/* Repeat the following TeamMember component for each team member */}
               <TeamMember
                 name="Phạm Thái Nguyên"
-                imageSrc="https://cdn.discordapp.com/attachments/984481824065617952/1100315739916873768/338940319_244271794681709_3908198250391232581_n.jpg"
+                imageSrc="https://cdn.discordapp.com/attachments/1051127040834805864/1194644770237206639/280661399_684201749476230_7457983245617736127_n.png?ex=65b11aa4&is=659ea5a4&hm=40fefb1e04c501b350b325f29db4ec36642190825c11351351c12a9a65840fd2&"
               />
               {/* Repeat the TeamMember component for other team members */}
               <TeamMember
                 name="Lê Thành Trung"
-                imageSrc="https://scontent.fsgn5-3.fna.fbcdn.net/v/t1.15752-9/369209682_143725865400335_1970477301954967517_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeGoq0aFGdXLz6_YjlUwCYAVrmeoU3Eb1UauZ6hTcRvVRqSfaHXdilBWP0IUGfPRUpPcU_QwZkTRIx1vnhOpAcUq&_nc_ohc=CZ97a7S17csAX_QNzJD&_nc_ht=scontent.fsgn5-3.fna&oh=03_AdTyfVGfMDA_G4wqiYtwOxQbnOPhXtAYbhaFFUOW_oHljg&oe=65BE33BD"
+                imageSrc="https://scontent.fsgn5-5.fna.fbcdn.net/v/t39.30808-6/415486407_3185860665053635_6729970578739613754_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeG3j6U2WNsRWHKWVWqTrsySyjcc6LSb5JXKNxzotJvklX-1UXCHpUyzcWlwCYRxb7QzAt1Xe4WCWIqs9aqr_IGO&_nc_ohc=jbWuSjw1CiMAX-Oit2_&_nc_ht=scontent.fsgn5-5.fna&oh=00_AfA4Dyf0Sr6yyo948QeTkGi9dBU8zeni4virb5whEJh13A&oe=65A3EA8D"
               />
               <TeamMember
                 name="Văn Tân Phú"
-                imageSrc="https://scontent.fsgn5-9.fna.fbcdn.net/v/t1.15752-9/342546150_168355536177282_6679907850113261837_n.png?_nc_cat=102&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeFigWckWkeXj0yj4rkGz3xRBXaafEAmqbsFdpp8QCapu_-EYA_g4YuDDFbEgUsZ2ckQDhYr55ZbL-7Sp2FgNQMd&_nc_ohc=PlPZzeDE-EUAX-xanRe&_nc_ht=scontent.fsgn5-9.fna&oh=03_AdQJJh2JJ_NUYntTPoYw3Nx-06BFngPZJI1vCEmDhQjF2A&oe=65C424ED"
+                imageSrc="https://cdn.discordapp.com/attachments/1175297910066393090/1194645011892031488/274633992_1298808633921546_3459297813985372380_n.png?ex=65b11ade&is=659ea5de&hm=c3f77113507b01dbce9ec5108854f691cc3253f7e17c525f0fd4a5dcc840bf35&"
               />
               <TeamMember
                 name="Sử Tiến Long"
