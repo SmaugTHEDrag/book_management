@@ -12,9 +12,9 @@ const Review = () => {
     {
       rating: 5,
       text: 'Excellent service! Highly recommended.',
-      author: 'John Doe',
-      company: 'CEO, ABC Corporation',
-      img: 'https://scontent.fsgn5-9.fna.fbcdn.net/v/t1.15752-9/336554074_545369801019156_3193960839547187067_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeHkYVlZHup6IAgaHv3XeVF_DUkEVl-1l9gNSQRWX7WX2LYZuIeZJOwCQK4-DrpThvP27ksR2AcYkn54UWB_Z5pm&_nc_ohc=yQTUYrJ3eLsAX_ipjO0&_nc_ht=scontent.fsgn5-9.fna&oh=03_AdQJNfg_E9DO8up2JqTTTBh1zp6ZwzzkQCWn_I_JJ48K1w&oe=65BE39C5',
+      author: 'DADDY Hung',
+      company: 'Cooking with daddy',
+      img: 'https://cdn.discordapp.com/attachments/1081069042212798545/1194938938436104293/IMG_9644.png?ex=65b22c9b&is=659fb79b&hm=f1eb234afb7fecd03abcd81b23428b3e5e6b13c231d29c8f2b22a3a231ea9f1c&',
     },
     {
       rating: 4,
