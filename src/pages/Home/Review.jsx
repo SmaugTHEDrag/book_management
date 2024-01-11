@@ -12,9 +12,9 @@ const Review = () => {
     {
       rating: 5,
       text: 'Excellent service! Highly recommended.',
-      author: 'DADDY Hung',
+      author: 'DADDY HUNG',
       company: 'Cooking with daddy',
-      img: 'https://cdn.discordapp.com/attachments/1081069042212798545/1194938938436104293/IMG_9644.png?ex=65b22c9b&is=659fb79b&hm=f1eb234afb7fecd03abcd81b23428b3e5e6b13c231d29c8f2b22a3a231ea9f1c&',
+      img: 'https://cdn.discordapp.com/attachments/1081069042212798545/1194627484092747776/IMG_9623.png?ex=65b10a8b&is=659e958b&hm=d1e056bc7489a3496eb335fcc04b79b43d2ba7cb2550089bdd8cb8c568723a65&',
     },
     {
       rating: 4,
