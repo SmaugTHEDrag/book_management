@@ -2,7 +2,7 @@ import { Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { Pagination } from 'flowbite-react';
 import { Link } from 'react-router-dom';
-import resume from '../assets/Library.pdf';
+import resume from '../assets/Weyward.pdf';
 import { FaDownload } from "react-icons/fa";
 const Favorite = () => {
   const booksPerPage = 10;
