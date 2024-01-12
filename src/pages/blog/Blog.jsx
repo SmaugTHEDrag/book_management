@@ -27,7 +27,7 @@ const posts = [
       'In a world where time is of the essence, the efficiency of the customer service you received not only saves time but also contributes to an overall positive interaction. The seamless handling of your inquiries or concerns reflects a well-organized and customer-centric approach, enhancing the overall quality of the service.',
     date: 'Jan 12, 2024',
     datetime: '2020-03-16',
-    category: { title: 'Marketing', href: '#' },
+    category: { title: 'Marketing and Entertainment', href: '#' },
     author: {
       name: 'Trung',
       role: 'Prize fighter',
