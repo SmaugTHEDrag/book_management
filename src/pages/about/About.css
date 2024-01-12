@@ -6,6 +6,11 @@
 .section-padding{
   padding:5% 0 0% 3%;
 }
+.job .job2{
+    font-size: 15px;
+    font-style: italic;
+    font-weight: normal;
+}
 .team-title-wrap{
     font-size:50px;
 }
@@ -39,7 +44,6 @@
 .team-wrap .team-member-listing .team-member-listing-item .team-member-info-wrap{
     display: inline-block;
     width: 100%;
-    position: relative;
 }
 
 /* Start Media query */
