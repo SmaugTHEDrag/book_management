@@ -12,7 +12,7 @@ const posts = [
     datetime: '2020-03-16',
     category: { title: 'Ficton', href: '#' }, 
     author: {
-      name: 'PTN',
+      name: 'PTN', 
       role: 'Normal student',
       href: '#',
       imageUrl:
