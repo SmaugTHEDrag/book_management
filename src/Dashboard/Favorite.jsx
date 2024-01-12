@@ -20,22 +20,14 @@ const Favorite = () => {
   
   // Delete a book from favorites
   const handleDelete = (id) => {
+    // console.log(id)
     fetch(`https://book-management-4qw7.onrender.com/favorite-book/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
     })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Failed to delete book from favorites: ${res.status} ${res.statusText}`);
-        }
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
-        // Update the state with the new list of favorite books
-        setAllBooks(data);
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error('Error deleting book from favorites:', error);
+        // console.log(data);
+        // setAllBooks(data);
       });
   };
 
