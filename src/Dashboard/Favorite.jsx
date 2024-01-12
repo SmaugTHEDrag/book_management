@@ -28,7 +28,6 @@ const Favorite = () => {
       .then((data) => {
         // console.log(data);
         // setAllBooks(data);
-        window.location.reload();
       });
   };
 
