@@ -18,7 +18,7 @@ const Review = () => {
     },
     {
       rating: 4,
-      text: 'Good experience overall. Room for improvement.',
+      text: 'Good experience overall.',
       author: 'Couple',
       company: 'Bim and Long',
       img: 'https://scontent.fsgn5-11.fna.fbcdn.net/v/t1.15752-9/370775434_3629868290671417_6538266988463275906_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeHg8jIFBYi5HeolscMlPbviIkXvU7bXjTciRe9TtteNN0RIrIdlhjrfLQhFObRgw_84w_XN0n9XEeUuY9v0y2KJ&_nc_ohc=Fj2Yj7zKSG0AX99oXFU&_nc_ht=scontent.fsgn5-11.fna&oh=03_AdRR-ql2B81DWo4wKJXRyvfB_k0B1TQv3d6KkYjO8z3SuQ&oe=65BE23C9',
@@ -32,7 +32,7 @@ const Review = () => {
     },
     {
       rating: 5,
-      text: 'Outstanding! Will definitely come back.',
+      text: 'Outstanding!',
       author: 'lPheul',
       company: 'Leader(gay), ANTI LGBT Social',
       img: 'https://cdn.discordapp.com/attachments/984481824065617952/1100315740420198410/339301656_3309074886010779_5177668617428147388_n.jpg',
