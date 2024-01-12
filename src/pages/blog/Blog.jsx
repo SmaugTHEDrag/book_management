@@ -10,7 +10,7 @@ const posts = [
       'The positive experience you have had serves as motivation to continue delivering top-notch service. The attention to detail, responsiveness, and dedication to customer satisfaction are integral aspects of the commitment to excellence. It is not just about meeting expectations but exceeding them, and I am glad to have contributed to making your experience a positive one.',
     date: 'Jan 12, 2024',
     datetime: '2020-03-16',
-    category: { title: 'Ficton', href: '#' },
+    category: { title: 'Ficton', href: '#' }, 
     author: {
       name: 'PTN',
       role: 'Normal student',
