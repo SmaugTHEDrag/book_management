@@ -13,9 +13,9 @@ const SingleBook = () => {
       {/* Book details */}
       <div className="img"><img src={imageURL} alt="Book Cover" className=" rounded-lg shadow-lg" /></div>
       <div className="text">
-        <h2 className="text-6xl font-bold">{bookTitle}</h2>
-        <h2 className="text-2xl font-semibold">{authorName}</h2>
-        <p className="mt-10 ">Description: {bookDescription}</p>
+        <h1 className="text-6xl font-bold">{bookTitle}</h1>
+        <h2 className="text-2xl font-thin italic">{authorName}</h2>
+        <div className="description"><p className="mt-10 italic ">Description: {bookDescription}</p></div>
         <p className="mt-4 ">Category: {category}</p>
       </div>
     </div>

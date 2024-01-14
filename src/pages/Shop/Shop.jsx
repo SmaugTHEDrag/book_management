@@ -13,7 +13,8 @@ export default function Shop() {
       .then((data) => {
         const filteredBooks = data.filter((book) =>
           book.bookTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          book.authorName.toLowerCase().includes(searchQuery.toLowerCase())
+          book.authorName.toLowerCase().includes(searchQuery.toLowerCase())||
+          book.category.toLowerCase().includes(searchQuery.toLowerCase())
         );
         setBooks(filteredBooks);
       });
