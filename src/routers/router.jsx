@@ -5,7 +5,7 @@ import Shop from "../pages/Shop/Shop";
 import { DashboardLayout } from "../Dashboard/DashboardLayout";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import Login from "../pages/Login";
-import SignleBook from "../pages/shared/SignleBook";
+import SingleBook from "../pages/shared/SingleBook";
 import UploadBook from "../Dashboard/UploadBook";
 import Dashboard from "../Dashboard/Dashboard";
 import EditBooks from "../Dashboard/EditBooks";
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/book/:id",
-        element: <SignleBook />,
+        element: <SingleBook />,
         loader: ({ params }) => fetch(`https://book-management-4qw7.onrender.com/book/${params.id}`)
       },
       {
