@@ -25,6 +25,14 @@ export default function Shop() {
           <Spinner aria-label="Center-aligned spinner example" />
       </div>
   }
+  // Truncate function dùng để giới hạn chữ trong Description
+const truncateDescription = (description, maxLength) => {
+  if (description.length <= maxLength) {
+    return description;
+  }
+  return description.slice(0, maxLength) + '...';
+};
+
   return (
     <div className='my-20 px-4 lg:px-24'>
       <h2 className='text-3xl font-bold text-center mb-7 z-40'>All Books are Available Here</h2>
@@ -38,20 +46,21 @@ export default function Shop() {
         />
       </div>
 
-        <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 text-center'>
+        <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8'>
           {
             books.map(book => <Card>
               <img src={book.imageURL} alt="" className='h-96' />
-              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              <h5 className="text-2xl font-bold text-center tracking-tight text-gray-900 dark:text-white">
                 <p>
                   {book.bookTitle} 
                 </p>
               </h5>
-              <h6 className="font-medium">{book.authorName}</h6>
+              <h6 className="font-medium text-center">{book.authorName}</h6>
               <p className="font-normal text-gray-700 dark:text-gray-400">
                 <p>
-                {book.bookDescription}
+                {truncateDescription(book.bookDescription, 150)}
                 </p>
+                <Link to={`/book/${book._id}`} className='cursor-pointer text-blue-700'>Show more</Link>
               </p>
 
               <button className='px-4 py-2 bg-blue-600 text-white rounded'><Link to={`/admin/dashboard/edit-books/${book._id}`}>+ Add</Link></button>
