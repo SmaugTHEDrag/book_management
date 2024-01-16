@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Pagination } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 import resume from '../assets/Weyward.pdf';
-import { FaDownload } from "react-icons/fa";
+import { FaDownload, FaRegEye} from "react-icons/fa";
 const Favorite = () => {
   const booksPerPage = 10;
   const [allBooks, setAllBooks] = useState([]);
@@ -47,7 +47,7 @@ const Favorite = () => {
           <Table.HeadCell>Book name</Table.HeadCell>
           <Table.HeadCell>Author Name</Table.HeadCell>
           <Table.HeadCell>Category</Table.HeadCell>
-          <Table.HeadCell>Edit or Manage</Table.HeadCell>
+          <Table.HeadCell>Manage favorite</Table.HeadCell>
         </Table.Head>
 
         {currentBooks.map((book, index) => (
@@ -62,9 +62,9 @@ const Favorite = () => {
               <Table.Cell>{book.authorName}</Table.Cell>
               <Table.Cell>{book.category}</Table.Cell>
               <Table.Cell>
-              <Link className="font-medium text-cyan-600 hover:underline dark:text-cyan-500 mr-5" to={`/admin/dashboard/edit-books/${book._id}`}>Edit</Link>
+              <a className='font-medium text-cyan-600 hover:underline dark:text-cyan-500 mr-5' href={resume} target ="_blank"  download>Download</a>
               <button className='bg-red-600 px-4 py-1 font-semibold text-white rounded-sm hover:bg-sky-600 mr-5' onClick={() => handleDelete(book._id)}>Delete</button>
-              <a className='font-medium text-cyan-600 hover:underline dark:text-cyan-500' href={resume} target ="_blank"  download>Download</a>
+              <a className='font-medium text-cyan-600 hover:underline dark:text-cyan-500' href={resume} target ="_blank">read online</a>
               </Table.Cell>
             </Table.Row>
           </Table.Body>
