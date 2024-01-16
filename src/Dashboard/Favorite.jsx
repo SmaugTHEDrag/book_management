@@ -62,9 +62,8 @@ const Favorite = () => {
               <Table.Cell>{book.authorName}</Table.Cell>
               <Table.Cell>{book.category}</Table.Cell>
               <Table.Cell>
-              <a className='font-medium text-cyan-600 hover:underline dark:text-cyan-500 mr-5' href={resume} target ="_blank"  download>Download</a>
               <button className='bg-red-600 px-4 py-1 font-semibold text-white rounded-sm hover:bg-sky-600 mr-5' onClick={() => handleDelete(book._id)}>Delete</button>
-              <a className='font-medium text-cyan-600 hover:underline dark:text-cyan-500' href={resume} target ="_blank">read online</a>
+              <a className='font-medium text-cyan-600 hover:underline dark:text-cyan-500' href={book.bookPDFURL} target ="_blank">Read Online</a>
               </Table.Cell>
             </Table.Row>
           </Table.Body>
