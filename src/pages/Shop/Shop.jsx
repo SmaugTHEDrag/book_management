@@ -13,8 +13,7 @@ export default function Shop() {
       .then((data) => {
         const filteredBooks = data.filter((book) =>
           book.bookTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          book.authorName.toLowerCase().includes(searchQuery.toLowerCase())||
-          book.category.toLowerCase().includes(searchQuery.toLowerCase())
+          book.authorName.toLowerCase().includes(searchQuery.toLowerCase())
         );
         setBooks(filteredBooks);
       });
@@ -46,6 +45,33 @@ const truncateDescription = (description, maxLength) => {
           className='px-6 py-2 border rounded'
         />
       </div>
+
+      <div className='mb-8 text-center font-bold'>
+        <input
+          type='checkbox'
+          id='categoryCheckbox'
+          onChange={() => setSelectedCategories(prev => [...prev, 'category1'])}
+        />
+      <label htmlFor='categoryCheckbox' className='mr-5'>Fiction</label>
+        <input
+          type='checkbox'
+          id='categoryCheckbox'
+          onChange={() => setSelectedCategories(prev => [...prev, 'category2'])}
+        />
+      <label htmlFor='categoryCheckbox' className='mr-5'>Fantasy</label>
+        <input
+          type='checkbox'
+          id='categoryCheckbox'
+          onChange={() => setSelectedCategories(prev => [...prev, 'category2'])}
+        />
+      <label htmlFor='categoryCheckbox' className='mr-5'>Thriller</label>
+        <input
+          type='checkbox'
+          id='categoryCheckbox'
+          onChange={() => setSelectedCategories(prev => [...prev, 'category2'])}
+        />
+      <label htmlFor='categoryCheckbox' className='mr-5'>Romance</label>
+     </div>
 
         <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8'>
           {
