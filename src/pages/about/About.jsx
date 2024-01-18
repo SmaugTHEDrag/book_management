@@ -33,7 +33,7 @@ const About = () => (
               <TeamMember
                 name="Lê Thành Trung"
                 job="Front-end, UI and Tester"
-                imageSrc="https://scontent.fsgn5-5.fna.fbcdn.net/v/t39.30808-6/415486407_3185860665053635_6729970578739613754_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeG3j6U2WNsRWHKWVWqTrsySyjcc6LSb5JXKNxzotJvklX-1UXCHpUyzcWlwCYRxb7QzAt1Xe4WCWIqs9aqr_IGO&_nc_ohc=jbWuSjw1CiMAX-Oit2_&_nc_ht=scontent.fsgn5-5.fna&oh=00_AfA4Dyf0Sr6yyo948QeTkGi9dBU8zeni4virb5whEJh13A&oe=65A3EA8D"
+                imageSrc="https://cdn.discordapp.com/attachments/1175297910066393090/1194692533742211182/IMG_5182.jpg?ex=65ba81a0&is=65a80ca0&hm=554545e28b65faecc2d56a6aa66d1c644d2e19f1750a29ec6a7226de43cd6e68&"
               />
               <TeamMember
                 name="Văn Tân Phú"

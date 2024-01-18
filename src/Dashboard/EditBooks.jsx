@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { Button, Checkbox, Label, Select, TextInput, Textarea } from 'flowbite-react';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData, useParams, useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 const EditBooks = () => {
   const { id } = useParams();
   const { bookTitle, authorName, imageURL, category, bookDescription, bookPDFURL } = useLoaderData();
   // console.log(bookTitle)
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || '/admin/dashboard/favorite';
   const handleUpdate = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -54,6 +56,8 @@ const EditBooks = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        alert("Add successful!")
+        navigate(from, {replace: true});
       })
       .catch((error) => {
         console.error('Error updating favorite book:', error);
@@ -62,7 +66,7 @@ const EditBooks = () => {
   
     return (
       <div className='px-4 my-12'>
-        <h2 className='mb-8 text-3xl font-bold'>Update book!</h2>
+        <h2 className='mb-8 text-3xl font-bold'>Add to favorite</h2>
         <form className="flex lg:w-[1180px] flex-col flex-wrap gap-4" onSubmit={handleUpdate}>
 
           {/* first row */}
@@ -193,7 +197,7 @@ const EditBooks = () => {
 
           {/* Submit btn */}
           <Button type="submit" className='mt-5'>
-          <Link to ='/manage'>Upload book</Link>
+          <Link to ='/admin/dashboard/favorite'>Upload book</Link>
           </Button>
         </form>
       </div>

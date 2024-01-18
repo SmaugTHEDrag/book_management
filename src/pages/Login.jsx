@@ -16,14 +16,6 @@ export default function Login() {
 
     const from = location.state?.from?.pathname || '/';
 
-    // login with google
-    const handleRegister = () => {
-        signUpWithGmail().then((result) => {
-            const user = result.user;
-            navigate(from, { replace: true });
-        }).catch((error) => console.log(error))
-    }
-
     // login with email password
     const handleLogin = (event) => {
         event.preventDefault();
