@@ -3,36 +3,61 @@ import { Card, Spinner } from 'flowbite-react';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { Link } from 'react-router-dom';
 export default function Shop() {
-  const {loading } = useContext(AuthContext);
+  const { loading } = useContext(AuthContext);
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-// fetching data
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  //fetching data
   useEffect(() => {
     fetch('https://book-management-4qw7.onrender.com/all-books')
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((data) => {
         const filteredBooks = data.filter((book) =>
           book.bookTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          book.authorName.toLowerCase().includes(searchQuery.toLowerCase())
+          book.authorName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          book.category.toLowerCase().includes(searchQuery.toLowerCase())
         );
+        // Filter books based on selected categories
+        if (selectedCategories.length > 0) {
+        const categoryFilteredBooks = filteredBooks.filter((book) => {
+        const bookCategories = book.category.split(' '); // categories are space-separated
+        return selectedCategories.some((selectedCategory) =>
+          bookCategories.includes(selectedCategory)
+         );
+        });
+        setBooks(categoryFilteredBooks);
+         } else {
         setBooks(filteredBooks);
+        }
       });
-  }, [loading, searchQuery]);
+  }, [loading, searchQuery, selectedCategories]);
 
-    // loader
-    if (loading) {
-      return <div className="text-center mt-28">
-          <Spinner aria-label="Center-aligned spinner example" />
+  // loader
+  if (loading) {
+    return (
+      <div className="text-center mt-28">
+        <Spinner aria-label="Center-aligned spinner example" />
       </div>
+    );
   }
-  // Truncate function dùng để giới hạn chữ trong Description
-const truncateDescription = (description, maxLength) => {
-  if (description.length <= maxLength) {
-    return description;
-  }
-  return description.slice(0, maxLength) + '...';
-};
 
+  // truncate make description less
+  const truncateDescription = (description, maxLength) => {
+    if (description.length <= maxLength) {
+      return description;
+    }
+    return description.slice(0, maxLength) + '...';
+  };
+
+  // checkbox with category search
+  function handleCheckboxChange(category) {
+    if (selectedCategories.includes(category)) {
+      setSelectedCategories((prev) => prev.filter((item) => item !== category));
+    } else {
+      setSelectedCategories((prev) => [...prev, category]);
+    }
+  }
   return (
     <div className='my-20 px-4 lg:px-24'>
       <h2 className='text-3xl font-bold text-center mb-7 z-40'>All Books are Available Here</h2>
@@ -47,31 +72,31 @@ const truncateDescription = (description, maxLength) => {
       </div>
 
       <div className='mb-8 text-center font-bold'>
-        <input
-          type='checkbox'
-          id='categoryCheckbox'
-          onChange={() => setSelectedCategories(prev => [...prev, 'category1'])}
-        />
-      <label htmlFor='categoryCheckbox' className='mr-5'>Fiction</label>
-        <input
-          type='checkbox'
-          id='categoryCheckbox'
-          onChange={() => setSelectedCategories(prev => [...prev, 'category2'])}
-        />
-      <label htmlFor='categoryCheckbox' className='mr-5'>Fantasy</label>
-        <input
-          type='checkbox'
-          id='categoryCheckbox'
-          onChange={() => setSelectedCategories(prev => [...prev, 'category2'])}
-        />
-      <label htmlFor='categoryCheckbox' className='mr-5'>Thriller</label>
-        <input
-          type='checkbox'
-          id='categoryCheckbox'
-          onChange={() => setSelectedCategories(prev => [...prev, 'category2'])}
-        />
-      <label htmlFor='categoryCheckbox' className='mr-5'>Romance</label>
-     </div>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='fictionCheckbox'
+            onChange={() => handleCheckboxChange('Fiction')}
+          />
+          Fiction
+        </label>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='fantasyCheckbox'
+            onChange={() => handleCheckboxChange('Fantasy')}
+          />
+          Fantasy
+        </label>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='thrillerCheckbox'
+            onChange={() => handleCheckboxChange('Thriller')}
+          />
+          Thriller
+        </label>
+      </div>
 
         <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8'>
           {
