@@ -95,6 +95,102 @@ export default function Shop() {
           />
           Thriller
         </label>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='historicalCheckbox'
+            onChange={() => handleCheckboxChange('Historical')}
+          />
+          Historical
+        </label>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='mysteryCheckbox'
+            onChange={() => handleCheckboxChange('Mystery')}
+          />
+          Mystery 
+        </label>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='horrorCheckbox'
+            onChange={() => handleCheckboxChange('Horror')}
+          />
+          Horror
+        </label>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='comicCheckbox'
+            onChange={() => handleCheckboxChange('Comic')}
+          />
+          Comic
+        </label>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='crimeCheckbox'
+            onChange={() => handleCheckboxChange('Crime')}
+          />
+          Crime
+        </label>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='sciencefictionCheckbox'
+            onChange={() => handleCheckboxChange('Science-Fiction')}
+          />
+          Science-Fiction
+        </label>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='psychologyCheckbox'
+            onChange={() => handleCheckboxChange('Psychology')}
+          />
+          Psychology
+        </label>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='artCheckbox'
+            onChange={() => handleCheckboxChange('Art')}
+          />
+          Art
+        </label>
+        <label className='mr-2'>
+          <input
+            type='checkbox'
+            id='romanceCheckbox'
+            onChange={() => handleCheckboxChange('Romance')}
+          />
+          Romance
+        </label>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='biographyCheckbox'
+            onChange={() => handleCheckboxChange('Biography')}
+          />
+          Biography
+        </label>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='cookingCheckbox'
+            onChange={() => handleCheckboxChange('Cookbooks')}
+          />
+          Cookbooks
+        </label>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='programmingCheckbox'
+            onChange={() => handleCheckboxChange('Programming')}
+          />
+          Programming
+        </label>
       </div>
 
         <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8'>
