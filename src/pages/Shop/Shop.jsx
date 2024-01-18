@@ -209,8 +209,10 @@ export default function Shop() {
                 </p>
                 <Link to={`/book/${book._id}`} className='cursor-pointer text-blue-700'>Show more</Link>
               </p>
-
-              <button className='px-4 py-2 bg-blue-600 text-white rounded'><Link to={`/admin/dashboard/edit-books/${book._id}`}>+ Add</Link></button>
+              <div style={{ display: 'flex' }}>
+                <button className='px-9 py-2 font-bold text-cyan-800 hover:underline dark:text-cyan-500'><Link to={book.bookPDFURL} target ="_blank">Read Online</Link></button>
+                <button className='px-14 py-2 bg-blue-600 text-white rounded'><Link to={`/admin/dashboard/edit-books/${book._id}`}>+ Add</Link></button>
+              </div>
             </Card>)
           }
         </div>
