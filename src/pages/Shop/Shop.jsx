@@ -125,7 +125,7 @@ export default function Shop() {
             id='comicCheckbox'
             onChange={() => handleCheckboxChange('Comic')}
           />
-          Comic
+          Comic 
         </label>
         <label className='mr-5'>
           <input
