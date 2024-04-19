@@ -194,8 +194,8 @@ export default function Shop() {
         <label className='mr-5'>
           <input
             type='checkbox'
-            id='programmingCheckbox'
-            onChange={() => handleCheckboxChange('Programming')}
+            id='machinelearningCheckbox'
+            onChange={() => handleCheckboxChange('Machine learning')}
           />
           Machine learning
         </label>
