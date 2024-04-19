@@ -191,6 +191,14 @@ export default function Shop() {
           />
           Programming
         </label>
+        <label className='mr-5'>
+          <input
+            type='checkbox'
+            id='programmingCheckbox'
+            onChange={() => handleCheckboxChange('Programming')}
+          />
+          Machine learning
+        </label>
       </div>
 
         <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8'>
