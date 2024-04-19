@@ -195,9 +195,9 @@ export default function Shop() {
           <input
             type='checkbox'
             id='machinelearningCheckbox'
-            onChange={() => handleCheckboxChange('Machine learning')}
+            onChange={() => handleCheckboxChange('Machine-learning')}
           />
-          Machine learning
+          Machine-learning
         </label>
       </div>
 
