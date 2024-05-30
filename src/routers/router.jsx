@@ -1,4 +1,5 @@
-import { createBrowserRouter, RouterProvider, BrowserRouter,Routes,Route } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "../App";
 import { Home } from "../pages/Home/Home";
 import Shop from "../pages/Shop/Shop";
@@ -15,59 +16,29 @@ import ErrorPage from "../pages/shared/ErrorPage";
 import About from "../pages/about/About";
 import Blog from "../pages/blog/Blog";
 import Favorite from "../Dashboard/Favorite";
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage/>,
-    children: [
-      {
-        path: "/",
-        element: <Home />
-      },
-      {
-        path: "/shop",
-        element: <Shop />,
-      },
-      {
-        path: "/book/:id",
-        element: <SingleBook />,
-        loader: ({ params }) => fetch(`https://book-management-4qw7.onrender.com/book/${params.id}`)
-      },
-      {
-        path: "/about",
-        element: <About/>
-      },
-      {
-        path: "/blog",
-        element: <Blog/>
-      }
-    ]
-  },
-  {
-    path: "/admin/dashboard",
-    element: <DashboardLayout />,
-    children: [
-      { path: "/admin/dashboard", element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>},
-      { path: "/admin/dashboard/upload", element: <UploadBook /> },
-      { path: "/admin/dashboard/favorite", element: <PrivateRoute><Favorite /></PrivateRoute> },
-      { path: "/admin/dashboard/edit-books/:id", element: <EditBooks />,
-      loader: ({ params }) => fetch(`https://book-management-4qw7.onrender.com/book/${params.id}`)
-    },
-    ],
-  },
-  {
-    path: "login",
-    element: <Login />
-  },
-  {
-    path: "/create-user",
-    element: <Signup/>
-  },
-  {
-    path:"/logout",
-    element: <Logout/>
-  }
-]);
 
-export default router;
+const Router = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/book/:id" element={<SingleBook />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/blog" element={<Blog />} />
+      </Route>
+      <Route path="/admin/dashboard" element={<DashboardLayout />}>
+        <Route index element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path="upload" element={<UploadBook />} />
+        <Route path="favorite" element={<PrivateRoute><Favorite /></PrivateRoute>} />
+        <Route path="edit-books/:id" element={<EditBooks />} />
+      </Route>
+      <Route path="/login" element={<Login />} />
+      <Route path="/create-user" element={<Signup />} />
+      <Route path="/logout" element={<Logout />} />
+      <Route path="*" element={<ErrorPage />} />
+    </Routes>
+  </BrowserRouter>
+);
+
+export default Router;

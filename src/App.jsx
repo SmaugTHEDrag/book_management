@@ -12,10 +12,9 @@ function App() {
   return (
     <>
       <Navbar/>
-      <div className='min-h-screen'>
+      <div className=''>
       <Outlet/>
       </div>
-      <FooterMain/>
     </>
   )
 }
