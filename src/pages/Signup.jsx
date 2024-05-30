@@ -1,48 +1,58 @@
 import React, { useContext, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
+import { sendEmailVerification } from 'firebase/auth';
 
 const Signup = () => {
-
-    const [ErrorMessage, setErrorMessage] = useState('');
-
+    const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(false);
     const { signUpWithGmail, createUser } = useContext(AuthContext);
-
-    console.log(signUpWithGmail)
     const location = useLocation();
     const navigate = useNavigate();
-
     const from = location.state?.from?.pathname || '/login';
 
-    // login with google
+    // Login with Google
     const handleRegister = () => {
-        signUpWithGmail().then((result) => {
-            const user = result.user;
-            navigate(from, { replace: true });
-        }).catch((error) => console.log(error))
-    }
+        setLoading(true);
+        signUpWithGmail()
+            .then((result) => {
+                const user = result.user;
+                navigate(from, { replace: true });
+            })
+            .catch((error) => {
+                console.log(error);
+                setErrorMessage(error.message);
+            })
+            .finally(() => setLoading(false));
+    };
 
-    // login with email password
-    const handleSignup = (event) => {
+    // Signup with email and password
+    const handleSignup = async (event) => {
         event.preventDefault();
+        setLoading(true);
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
-        createUser(email, password).then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-            alert("Sign up successfully!")
-            navigate(from, {replace: true})
-            // ...
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(error.message)
-            // ..
-          })
-    }
+        const confirmPassword = form.confirmPassword.value;
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const userCredential = await createUser(email, password);
+            await sendEmailVerification(userCredential.user);
+            alert("Sign up successfully! Please verify your email.");
+            navigate(from, { replace: true });
+        } catch (error) {
+            console.log(error.message);
+            setErrorMessage(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
 
@@ -63,6 +73,9 @@ const Signup = () => {
                                 </div>
                                 <div className="relative">
                                     <input id="password" name="password" type="password" className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Password" required />
+                                </div>
+                                <div className="relative">
+                                    <input id="confirmPassword" name="ConfirmPassword" type="password" className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Confirm Password" required />
                                 </div>
                                 <div>
                                     <p className='text-base'>If you have an account. Please <Link to='/login' className='underline text-blue-600'>Login Now</Link> here</p>

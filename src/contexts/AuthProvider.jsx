@@ -1,6 +1,6 @@
 import React from 'react';
 import { createContext } from 'react';
-import {GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut} from 'firebase/auth';
+import {GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut} from 'firebase/auth';
 import app from '../firebase/firebase.config';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -51,7 +51,8 @@ const AuthProvider = ({children}) => {
         createUser, 
         login, 
         logOut,
-        signUpWithGmail
+        signUpWithGmail,
+        sendEmailVerification
     }
 
     return (
