@@ -34,8 +34,8 @@ const Navbar = () => {
         { link: "About", path: "/about" },
         { link: "Library", path: "/shop" },
         { link: "Blog", path: "/blog" },
-        { link: "Menu", path: "/admin/dashboard/favorite" },
-        { link: <LuBookmarkPlus />, path: "/admin/dashboard/favorite"}
+        { link: "Menu", path: "/admin/dashboard" },
+        { link: <LuBookmarkPlus />, path: "/admin/dashboard"}
     ];
     return (
         <header className="w-full bg-transparent fixed top-0 left-0 right-0 transition-all ease-in duration-300 text-bold">

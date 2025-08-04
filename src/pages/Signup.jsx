@@ -30,7 +30,9 @@ const Signup = () => {
     const handleSignup = async (event) => {
         event.preventDefault();
         setLoading(true);
+
         const form = event.target;
+        const username = form.username.value;
         const email = form.email.value;
         const password = form.password.value;
         const confirmPassword = form.confirmPassword.value;
@@ -42,17 +44,29 @@ const Signup = () => {
         }
 
         try {
-            const userCredential = await createUser(email, password);
-            await sendEmailVerification(userCredential.user);
-            alert("Sign up successfully! Please verify your email.");
-            navigate(from, { replace: true });
+            const response = await fetch("http://localhost:8080/api/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, email, password }),
+            });
+
+            if (!response.ok) {
+            throw new Error("Signup failed");
+            }
+
+            const data = await response.json();
+            alert("Sign up successful!");
+            navigate("/login");
         } catch (error) {
-            console.log(error.message);
+            console.error("Signup error:", error);
             setErrorMessage(error.message);
         } finally {
             setLoading(false);
         }
     };
+
 
     return (
 
@@ -68,6 +82,9 @@ const Signup = () => {
                         </div>
                         <div className="divide-y divide-gray-200">
                             <form onSubmit={handleSignup} className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+                                <div className="relative">
+                                    <input id="username" name="username" type="text" className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Username" required />
+                                </div>
                                 <div className="relative">
                                     <input id="email" name="email" type="text" className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Email address" required />
                                 </div>

@@ -1,26 +1,59 @@
-import React from 'react';
-import { renderMatches, useLoaderData, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Banner } from 'flowbite-react';
 import './SingleBook.css';
+import { Link } from 'react-router-dom';
+import { HiArrowSmLeft } from "react-icons/hi"; // đảm bảo đã import
 const SingleBook = () => {
-  const data = useLoaderData();
-  const { bookTitle, authorName, imageURL, category, bookDescription } = data;
+  const { id } = useParams();
+  const [book, setBook] = useState(null);
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/api/books/${id}`)
+      .then(res => res.json())
+      .then(data => setBook(data))
+      .catch(err => {
+        console.error("Fetch error:", err);
+      });
+  }, [id]);
+
+  if (!book) return <div className="text-center mt-20 text-red-500">Loading...</div>;
+
+  const { title, author, image, category, description } = book;
 
   return (
-    <div className='mt-20'>
-      <Banner/>
+    <div className="mt-20 px-6 lg:px-20">
 
-      {/* Book details */}
-      <div className="img"><img src={imageURL} alt="Book Cover" className=" rounded-lg shadow-lg" /></div>
-      <div className="text">
-        <h1 className="text-6xl font-bold">{bookTitle}</h1>
-        <h2 className="text-2xl font-thin italic">{authorName}</h2>
-        <div className="description"><p className="mt-10 italic ">Description: {bookDescription}</p></div>
-        <p className="mt-4 ">Category: {category}</p>
+      {/* Back link */}
+      <Link
+        to="/shop"
+        className="text-black-700 hover:underline mb-10 block text-2xl lg:text-3xl font-bold flex items-center gap-2" 
+      > 
+        <HiArrowSmLeft className="text-3xl"/> Back to Shop 
+      </Link>
+
+      {/* Main content */}
+      <div className="flex flex-col lg:flex-row gap-8 items-start">
+        {/* Image */}
+        <div className="w-full lg:w-1/2">
+          <img
+            src={image}
+            alt="Book Cover"
+            className="rounded-xl shadow-xl max-w-[350px] h-[500px] object-cover"
+          />
+        </div>
+
+        {/* Book info */}
+        <div className="w-full lg:w-2.3/3 space-y-6">
+          <h1 className="text-4xl lg:text-6xl font-bold text-gray-900">{title}</h1>
+          <h2 className="text-xl lg:text-2xl italic text-gray-600">By {author}</h2>
+          <p className="text-lg leading-relaxed italic text-gray-700">Description: {description}</p>
+          <p className="text-md text-gray-800">Category: <span className="font-semibold">{category}</span></p>
+        </div>
       </div>
     </div>
-    
   );
+
 }
 
 export default SingleBook;

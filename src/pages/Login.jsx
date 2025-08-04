@@ -3,35 +3,51 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
 
 export default function Login() {
-    const [ErrorMessage, setErrorMessage] = useState('');
-    const { signUpWithGmail, login } = useContext(AuthContext);
+    const [errorMessage, setErrorMessage] = useState('');
+    const { setUser } = useContext(AuthContext); // ✅ lấy setUser từ context
     const [notVerified, setNotVerified] = useState(false);
 
     const location = useLocation();
     const navigate = useNavigate();
-    const from = location.state?.from?.pathname || '/';
+    const from = location.state?.from?.pathname;
+    const redirectTo = from && from.startsWith('/admin/dashboard') ? "/admin/dashboard" : "/";
 
-    const handleLogin = (event) => {
+    navigate(redirectTo, { replace: true });
+
+
+    const handleLogin = async (event) => {
         event.preventDefault();
         const form = event.target;
-        const email = form.email.value;
+        const login = form.email.value;
         const password = form.password.value;
 
-        login(email, password)
-            .then((result) => {
-                const user = result.user;
-                if (user.emailVerified) {
-                    alert("Login successful!");
-                    navigate(from, { replace: true });
-                } else {
-                    setNotVerified(true);
-                    setErrorMessage('Please verify your email before logging in.');
-                }
-            })
-            .catch((error) => {
-                const errorMessage = error.message;
-                setErrorMessage(errorMessage);
+        try {
+            const response = await fetch("http://localhost:8080/api/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ login, password }),
             });
+
+            if (!response.ok) {
+                throw new Error("Invalid credentials");
+            }
+
+            const data = await response.json();
+            const token = data.token;
+
+            // ✅ Lưu token và user
+            localStorage.setItem("token", token);
+            const user = { login }; // có thể thay bằng thông tin chi tiết từ API nếu cần
+            localStorage.setItem("user", JSON.stringify(user));
+            setUser(user);
+
+            navigate(from, { replace: true });
+        } catch (error) {
+            console.error("Login error:", error);
+            setErrorMessage("Email or password is invalid.");
+        }
     };
 
     return (
@@ -41,7 +57,7 @@ export default function Login() {
                 <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
                     <div className="max-w-md mx-auto">
                         {notVerified ? (
-                            <h2 id='login-text-custom' className="text-center text-2xl font-semibold mb-4">Please verify your email</h2>
+                            <h2 className="text-center text-2xl font-semibold mb-4">Please verify your email</h2>
                         ) : (
                             <>
                                 <div>
@@ -50,17 +66,33 @@ export default function Login() {
                                 <div className="divide-y divide-gray-200">
                                     <form onSubmit={handleLogin} className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                                         <div className="relative">
-                                            <input id="email" name="email" type="text" className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600" placeholder="Email address" required />
+                                            <input
+                                                id="email"
+                                                name="email"
+                                                type="text"
+                                                className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
+                                                placeholder="Email or Username"
+                                                required
+                                            />
                                         </div>
                                         <div className="relative">
-                                            <input id="password" name="password" type="password" className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600" placeholder="Password" required />
+                                            <input
+                                                id="password"
+                                                name="password"
+                                                type="password"
+                                                className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
+                                                placeholder="Password"
+                                                required
+                                            />
                                         </div>
                                         <div>
-                                            {ErrorMessage && <p className='text-blue-500 text-sm'>Email or Username is not valid!</p>}
-                                            <p className='text-base mt-1'>If you haven't an account. Please create here <Link to='/create-user' className='underline text-blue-600'>Sign Up</Link></p>
+                                            {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
+                                            <p className="text-base mt-1">
+                                                If you haven't an account. Please create here <Link to="/create-user" className="underline text-blue-600">Sign Up</Link>
+                                            </p>
                                         </div>
                                         <div className="relative">
-                                            <button type='submit' className="bg-blue-500 text-white rounded px-6 py-1">Login</button>
+                                            <button type="submit" className="bg-blue-500 text-white rounded px-6 py-1">Login</button>
                                         </div>
                                     </form>
                                 </div>

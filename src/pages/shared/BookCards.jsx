@@ -47,20 +47,20 @@ const BookCards = ({headline, books}) => {
                 >
                     {
                         books.map(book => <SwiperSlide className='text-center flex items-center justify-center' key={book._id}>
-                            <Link to={`/book/${book._id}`} className='cursor-pointer'>
+                            <Link to={`/book/${book.id}`} className='cursor-pointer'>
                                 <div className='bg-gray-100 p-8 rounded-lg relative'>
-                                    <img src={book.imageURL} alt="" className='w-full' />
+                                    <img src={book.image} alt="" className='w-full' />
                                     <div className='absolute top-3 right-3 bg-red-600 hover:bg-black p-2 rounded '>
                                         <Link to="/admin/dashboard/favorite">
-                                            <Link to={`/admin/dashboard/edit-books/${book._id}`}><FaPlusCircle className='w-4 h-4 text-white'/></Link>
+                                            <Link to={`/admin/dashboard/edit-books/${book.id}`}><FaPlusCircle className='w-4 h-4 text-white'/></Link>
                                         </Link>
                                     </div>
                                 </div>
 
                                 <div className='mt-5 mb-8 text-left space-y-2 flex justify-center items-start'>
                                     <div>
-                                        <h3 className='text-black font-bold'>{book.bookTitle}</h3>
-                                        <p className='text-black'>{book.authorName}</p>
+                                        <h3 className='text-black font-bold'>{book.title}</h3>
+                                        <p className='text-black'>{book.author}</p>
                                     </div>
                                     <div>
                                     </div>

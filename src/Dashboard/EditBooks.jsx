@@ -1,207 +1,160 @@
-import React, { useState } from 'react'
-import { Button, Checkbox, Label, Select, TextInput, Textarea } from 'flowbite-react';
+import React from 'react';
+import { Button, Label, TextInput, Textarea } from 'flowbite-react';
 import { useLoaderData, useParams, useLocation, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+
 const EditBooks = () => {
   const { id } = useParams();
-  const { bookTitle, authorName, imageURL, category, bookDescription, bookPDFURL } = useLoaderData();
-  // console.log(bookTitle)
+  const { title, author, image, category, description, pdf } = useLoaderData();
   const location = useLocation();
   const navigate = useNavigate();
-  const from = location.state?.from?.pathname || '/admin/dashboard/favorite';
+  const from = location.state?.from?.pathname || '/admin/dashboard/book';
+
   const handleUpdate = (event) => {
     event.preventDefault();
     const form = event.target;
 
-    const bookTitle = form.bookTitle.value;
-    const authorName = form.authorName.value;
-    const imageURL = form.imageURL.value;
-    const category = form.category.value;
-    const bookDescription = form.bookDescription.value;
-    const bookPDFURL = form.bookPDFURL.value;
-
-    const bookObj = {
-      bookTitle,
-      authorName,
-      imageURL,
-      category,
-      bookDescription,
-      bookPDFURL,
+    const updatedBook = {
+      title: form.title.value,
+      author: form.author.value,
+      image: form.image.value,
+      category: form.category.value,
+      description: form.description.value,
+      pdf: form.pdf.value,
     };
 
-    // Update the book object
-    fetch(`https://book-management-4qw7.onrender.com/book/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(bookObj),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error('Error updating book:', error);
-      });
+  fetch("http://localhost:8080/api/books/" + id, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedBook),
+  })
+    .then(async (res) => {
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(errorText || "Failed to update");
+      }
 
-    // Update the favorite book object
-    fetch(`https://book-management-4qw7.onrender.com/favorite-book/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(bookObj),
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        return res.json();
+      } else {
+        return {};
+      }
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        alert("Add successful!")
-        navigate(from, {replace: true});
-      })
-      .catch((error) => {
-        console.error('Error updating favorite book:', error);
-      });
+    .then((data) => {
+      alert("Book updated successfully!");
+      navigate("/admin/dashboard/manage");
+    })
+    .catch((err) => {
+      console.error("Error updating book:", err.message);
+      alert("Failed to update book");
+    });
+
+
   };
-  
-    return (
-      <div className='px-4 my-12'>
-        <h2 className='mb-8 text-3xl font-bold'>Add to favorite</h2>
-        <form className="flex lg:w-[1180px] flex-col flex-wrap gap-4" onSubmit={handleUpdate}>
 
-          {/* first row */}
-          <div className='flex gap-8'>
-
-            {/* book name */}
-            <div className='lg:w-1/2'>
-              <div className="mb-2 block">
-                <Label
-                  htmlFor="bookTitle"
-                  value="Book Title"
-                />
-              </div>
-              <TextInput
-                id="bookTitle"
-                placeholder="Book Name"
-                required
-                type="text"
-                name='bookTitle'
-                className='w-full'
-                defaultValue={bookTitle}
-              />
-            </div>
-
-            {/* author name */}
-            <div className='lg:w-1/2'>
-              <div className="mb-2 block">
-                <Label
-                  htmlFor="authorName"
-                  value="Author Name"
-                />
-              </div>
-              <TextInput
-                id="authorName"
-                placeholder="Author Name"
-                required
-                type="text"
-                name='authorName'
-                className='w-full'
-                defaultValue={authorName}
-              />
-            </div>
-
+  return (
+    <div className='px-4 my-12'>
+      <h2 className='mb-8 text-3xl font-bold'>Edit Book</h2>
+      <form className="flex lg:w-[1180px] flex-col flex-wrap gap-4" onSubmit={handleUpdate}>
+        {/* First Row */}
+        <div className='flex gap-8'>
+          {/* Book Title */}
+          <div className='lg:w-1/2'>
+            <Label htmlFor="title" value="Book Title" className="mb-2 block" />
+            <TextInput
+              id="title"
+              name="title"
+              type="text"
+              placeholder="Book Name"
+              required
+              className='w-full'
+              defaultValue={title}
+            />
           </div>
 
-          {/* 2nd Row */}
-          <div className='flex gap-8'>
-            {/* book url */}
-            <div className='lg:w-1/2'>
-              <div className="mb-2 block">
-                <Label
-                  htmlFor="imageURL"
-                  value="Book Image URL"
-                />
-              </div>
-              <TextInput
-                id="imageURL"
-                placeholder="Image URL"
-                required
-                type="text"
-                name='imageURL'
-                className='w-full'
-                defaultValue={imageURL}
-              />
-            </div>
+          {/* Author Name */}
+          <div className='lg:w-1/2'>
+            <Label htmlFor="author" value="Author Name" className="mb-2 block" />
+            <TextInput
+              id="author"
+              name="author"
+              type="text"
+              placeholder="Author Name"
+              required
+              className='w-full'
+              defaultValue={author}
+            />
+          </div>
+        </div>
 
-            {/* book category */}
-            <div className='lg:w-1/2'>
-            <div className="mb-2 block">
-              <Label
-                htmlFor="category"
-                value="Book Category"
-              />
-            </div>
+        {/* Second Row */}
+        <div className='flex gap-8'>
+          {/* Image URL */}
+          <div className='lg:w-1/2'>
+            <Label htmlFor="image" value="Book Image URL" className="mb-2 block" />
+            <TextInput
+              id="image"
+              name="image"
+              type="text"
+              placeholder="Image URL"
+              required
+              className='w-full'
+              defaultValue={image}
+            />
+          </div>
+
+          {/* Category */}
+          <div className='lg:w-1/2'>
+            <Label htmlFor="category" value="Book Category" className="mb-2 block" />
             <TextInput
               id="category"
+              name="category"
+              type="text"
               placeholder="Category"
               required
-              type="text"
-              name='category'
               className='w-full'
               defaultValue={category}
             />
           </div>
+        </div>
 
-          </div>
+        {/* Description */}
+        <div>
+          <Label htmlFor="description" value="Book Description" className="mb-2 block" />
+          <Textarea
+            id="description"
+            name="description"
+            placeholder="Book Description"
+            rows={4}
+            required
+            className='w-full'
+            defaultValue={description}
+          />
+        </div>
 
-          {/* full width div for book description */}
-          <div>
-            <div className="mb-2 block">
-              <Label
-                htmlFor="bookDescription"
-                value="Book Description"
-              />
-            </div>
-            <Textarea
-              id="bookDescription"
-              placeholder="Book Description"
-              required
-              type="text"
-              name='bookDescription'
-              className='w-full'
-              rows={4}
-              defaultValue={bookDescription}
-            />
-          </div>
+        {/* PDF URL */}
+        <div>
+          <Label htmlFor="pdf" value="Book PDF Link" className="mb-2 block" />
+          <TextInput
+            id="pdf"
+            name="pdf"
+            type="text"
+            placeholder="Paste Book PDF URL here"
+            required
+            className='w-full'
+            defaultValue={pdf}
+          />
+        </div>
 
+        {/* Submit Button */}
+        <Button type="submit" className='mt-5'>
+          Update Book
+        </Button>
+      </form>
+    </div>
+  );
+};
 
-          {/* book pdf url */}
-          <div>
-            <div className="mb-2 block">
-              <Label
-                htmlFor="bookPDFURL"
-                value="Book PDF Link"
-              />
-            </div>
-            <TextInput
-              id="bookPDFURL"
-              placeholder="Paste Book PDF URL here"
-              required
-              type="text"
-              name='bookPDFURL'
-              className='w-full'
-              defaultValue={bookPDFURL}
-            />
-          </div>
-
-
-          {/* Submit btn */}
-          <Button type="submit" className='mt-5'>
-          <Link to ='/admin/dashboard/favorite'>Upload book</Link>
-          </Button>
-        </form>
-      </div>
-    )
-  }
-
-export default EditBooks
+export default EditBooks;

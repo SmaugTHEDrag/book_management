@@ -1,79 +1,76 @@
-
 import { Sidebar } from 'flowbite-react';
-import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiSupport, HiTable, HiUser, HiViewBoards, HiOutlineCloudUpload } from 'react-icons/hi';
-import { RiArrowGoBackFill } from "react-icons/ri";
-import { Link } from 'react-router-dom';
+import {
+  HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag,
+  HiSupport, HiTable, HiUser, HiViewBoards, HiOutlineCloudUpload
+} from 'react-icons/hi';
+
+import img from '../../src/assets/profile.jpg';
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthProvider';
 import MobileDashboard from './MobileDashboard';
-import { Avatar, Dropdown, Navbar } from 'flowbite-react';
+import { Link } from 'react-router-dom';
+
 const SideBar = () => {
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
+
   return (
-    <div className=''>
-      <Sidebar aria-label="Sidebar with content separator example" className='hidden md:block '>
+    <div>
+      {/* Desktop Sidebar */}
+      <Sidebar aria-label="Sidebar with content separator example" className='hidden md:block'>
         <Sidebar.Logo
+          href="/"
+          img={img}
           className='w-10 h-10 rounded-full'
           imgAlt="Flowbite logo"
-        ><Dropdown
-        arrowIcon={false}
-        inline
-        label={<Avatar alt="User settings" img="" rounded/>}
-      />
-          <Link to ="/">
-          <p>
-            {user?.displayName}
-          </p>
-          </Link>
+        >
+          <p>{user?.login || "Demo User"}</p>
         </Sidebar.Logo>
+
         <Sidebar.Items>
           <Sidebar.ItemGroup>
-            <Sidebar.Item
-              icon={HiShoppingBag}
-            >
-              <Link to="/admin/dashboard/favorite">
-              <p>
-                Favorite
-              </p>
-              </Link>
+            <Sidebar.Item href="/admin/dashboard" icon={HiChartPie}>
+              Dashboard
             </Sidebar.Item>
-            <Sidebar.Item
-              icon={HiArrowSmRight}
-            >
-              <Link to="/login">
-              <p>
-                Sign In
-              </p>
-              </Link>
+            <Sidebar.Item href="/admin/dashboard/upload" icon={HiOutlineCloudUpload}>
+              Upload Book
             </Sidebar.Item>
-            <Sidebar.Item
-              icon={HiTable}
-            >
-              <Link to="/logout">
-              <p>
-                Log out
-              </p>
-              </Link>
+            <Sidebar.Item href="/admin/dashboard/manage" icon={HiInbox}>
+              Manage Books
+            </Sidebar.Item>
+            <Sidebar.Item href="/admin/dashboard/users" icon={HiUser}>
+              Users
+            </Sidebar.Item>
+            <Sidebar.Item href="/admin/dashboard/products" icon={HiShoppingBag}>
+              Products
+            </Sidebar.Item>
+            <Sidebar.Item href="/login" icon={HiArrowSmRight}>
+              Sign In
+            </Sidebar.Item>
+            <Sidebar.Item href="/logout" icon={HiTable}>
+              Log out
             </Sidebar.Item>
           </Sidebar.ItemGroup>
+
           <Sidebar.ItemGroup>
-            <Sidebar.Item
-              icon={RiArrowGoBackFill}
-            >
-              <Link to ="/">
-              <p>
-                Return to web
-              </p>
-              </Link>
+            <Sidebar.Item href="#" icon={HiChartPie}>
+              Upgrade to Pro
+            </Sidebar.Item>
+            <Sidebar.Item href="#" icon={HiViewBoards}>
+              Documentation
+            </Sidebar.Item>
+            <Sidebar.Item href="#" icon={HiSupport}>
+              Help
             </Sidebar.Item>
           </Sidebar.ItemGroup>
         </Sidebar.Items>
       </Sidebar>
+
+      {/* Mobile Sidebar */}
       <div className='md:hidden'>
-          <MobileDashboard/>
+        <MobileDashboard />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SideBar
+export default SideBar;

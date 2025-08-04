@@ -1,39 +1,8 @@
-import React, { useState } from 'react'
-
-import { Button, Checkbox, Label, Select, TextInput, Textarea } from 'flowbite-react';
+import React, { useState } from 'react';
+import { Button, Label, TextInput, Textarea } from 'flowbite-react';
 
 const UploadBook = () => {
-  const bookCategories = [
-    "Fiction",
-    "Non-fiction",
-    "Mystery",
-    "Programming",
-    "Science fiction",
-    "Fantasy",
-    "Horror",
-    "Biography",
-    "Autobiography",
-    "History",
-    "Self-help",
-    "Business",
-    "Memoir",
-    "Poetry",
-    "Children's books",
-    "Travel",
-    "Religion and spirituality",
-    "Science",
-    "Art and design",
-  ];
-
-
-  const [selectedBookCategory, setSelectedBookCategory] = useState(
-    bookCategories[0]
-  );
-
-  const handleChangeSelectedValue = (event) => {
-    console.log(event.target.value);
-    setSelectedBookCategory(event.target.value);
-  };
+  const [bookCategory, setBookCategory] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -47,170 +16,126 @@ const UploadBook = () => {
     const bookPDFURL = form.bookPDFURL.value;
 
     const bookObj = {
-      bookTitle,
-      authorName,
-      imageURL,
-      category,
-      bookDescription,
-      bookPDFURL,
+      title: bookTitle,
+      author: authorName,
+      image: imageURL,
+      category: category,
+      description: bookDescription,
+      pdf: bookPDFURL,
     };
-    // console.log(dataObj)
-    fetch("https://book-management-4qw7.onrender.com/upload-book", {
-      method: "POST",
 
+    fetch("http://localhost:8080/api/books", {
+      method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-
       body: JSON.stringify(bookObj),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to upload book");
+        }
+        return res.json();
+      })
       .then((data) => {
-        // console.log(data);
-        alert("Book updated successfully!!!!");
+        alert("Book uploaded successfully!");
         form.reset();
+        setBookCategory("");
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Error uploading book");
       });
   };
 
-
   return (
-    <div className='px-4 my-12'>
-      <h2 className='mb-8 text-3xl font-bold'>Upload A Book!</h2>
-      <form className="flex lg:w-[1180px] flex-col flex-wrap gap-4" onSubmit={handleSubmit}>
-
-        {/* first row */}
-        <div className='flex gap-8'>
-
-          {/* book name */}
-          <div className='lg:w-1/2'>
-            <div className="mb-2 block">
-              <Label
-                htmlFor="bookTitle"
-                value="Book Title"
-              />
-            </div>
+    <div className="px-4 my-12">
+      <h2 className="mb-8 text-3xl font-bold">Upload A Book!</h2>
+      <form
+        className="flex lg:w-[1180px] flex-col flex-wrap gap-4"
+        onSubmit={handleSubmit}
+      >
+        {/* First Row */}
+        <div className="flex gap-8">
+          <div className="lg:w-1/2">
+            <Label htmlFor="bookTitle" value="Book Title" />
             <TextInput
               id="bookTitle"
+              name="bookTitle"
               placeholder="Book Name"
               required
               type="text"
-              name='bookTitle'
-              className='w-full'
             />
           </div>
-
-          {/* author name */}
-          <div className='lg:w-1/2'>
-            <div className="mb-2 block">
-              <Label
-                htmlFor="authorName"
-                value="Author Name"
-              />
-            </div>
+          <div className="lg:w-1/2">
+            <Label htmlFor="authorName" value="Author Name" />
             <TextInput
               id="authorName"
+              name="authorName"
               placeholder="Author Name"
               required
               type="text"
-              name='authorName'
-              className='w-full'
             />
           </div>
-
         </div>
 
-        {/* 2nd Row */}
-        <div className='flex gap-8'>
-          {/* book url */}
-          <div className='lg:w-1/2'>
-            <div className="mb-2 block">
-              <Label
-                htmlFor="imageURL"
-                value="Book Image URL"
-              />
-            </div>
+        {/* Second Row */}
+        <div className="flex gap-8">
+          <div className="lg:w-1/2">
+            <Label htmlFor="imageURL" value="Book Image URL" />
             <TextInput
               id="imageURL"
+              name="imageURL"
               placeholder="Image URL"
               required
               type="text"
-              name='imageURL'
-              className='w-full'
             />
           </div>
-
-          {/* book category */}
-          <div className='lg:w-1/2'>
-            <div className="mb-2 block">
-              <Label
-                htmlFor="inputState"
-                value="Book Category"
-              />
-            </div>
-            <Select
-              id="inputState"
+          <div className="lg:w-1/2">
+            <Label htmlFor="categoryName" value="Book Category" />
+            <TextInput
+              id="categoryName"
               name="categoryName"
-              className="w-full rounded"
-              value={selectedBookCategory}
-              onChange={handleChangeSelectedValue}
-            >
-              {bookCategories.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </Select>
+              placeholder="Enter category (e.g., Fiction)"
+              required
+              type="text"
+              value={bookCategory}
+              onChange={(e) => setBookCategory(e.target.value)}
+            />
           </div>
-
         </div>
 
-        {/* full width div for book description */}
+        {/* Description */}
         <div>
-          <div className="mb-2 block">
-            <Label
-              htmlFor="bookDescription"
-              value="Book Description"
-            />
-          </div>
+          <Label htmlFor="bookDescription" value="Book Description" />
           <Textarea
             id="bookDescription"
+            name="bookDescription"
             placeholder="Book Description"
             required
-            type="text"
-            name='bookDescription'
-            className='w-full'
             rows={4}
           />
         </div>
 
-
-        {/* book pdf url */}
+        {/* PDF Link */}
         <div>
-          <div className="mb-2 block">
-            <Label
-              htmlFor="bookPDFURL"
-              value="Book PDF Link"
-            />
-          </div>
+          <Label htmlFor="bookPDFURL" value="Book PDF Link" />
           <TextInput
             id="bookPDFURL"
+            name="bookPDFURL"
             placeholder="Paste Book PDF URL here"
             required
             type="text"
-            name='bookPDFURL'
-            className='w-full'
           />
         </div>
 
-
-        {/* Submit btn */}
-        <Button type="submit" className='mt-5'>
-          Upload book
+        {/* Submit Button */}
+        <Button type="submit" className="mt-5">
+          Upload Book
         </Button>
-
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default UploadBook
+export default UploadBook;

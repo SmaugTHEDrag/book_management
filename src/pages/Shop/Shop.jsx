@@ -10,12 +10,12 @@ export default function Shop() {
 
   //fetching data
   useEffect(() => {
-    fetch('https://book-management-4qw7.onrender.com/all-books')
+    fetch('http://localhost:8080/api/books')
       .then((res) => res.json())
       .then((data) => {
         const filteredBooks = data.filter((book) =>
-          book.bookTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          book.authorName.toLowerCase().includes(searchQuery.toLowerCase()) 
+          book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          book.author.toLowerCase().includes(searchQuery.toLowerCase()) 
         );
         // Filter books based on selected categories
         if (selectedCategories.length > 0) {
@@ -204,22 +204,22 @@ export default function Shop() {
         <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8'>
           {
             books.map(book => <Card>
-              <img src={book.imageURL} alt="" className='h-96' />
+              <img src={book.image} alt="" className='h-96' />
               <h5 className="text-2xl font-bold text-center tracking-tight text-gray-900 dark:text-white">
                 <p>
-                  {book.bookTitle} 
+                  {book.title} 
                 </p>
               </h5>
               <h6 className="font-medium text-center">{book.authorName}</h6>
               <p className="font-normal text-gray-700 dark:text-gray-400">
                 <p>
-                {truncateDescription(book.bookDescription, 150)}
+                {truncateDescription(book.description, 150)}
                 </p>
-                <Link to={`/book/${book._id}`} className='cursor-pointer text-blue-700'>Show more</Link>
+                <Link to={`/book/${book.id}`} className='cursor-pointer text-blue-700'>Show more</Link>
               </p>
               <div style={{ display: 'flex' }}>
-                <button className='px-9 py-2 font-bold text-cyan-800 hover:underline dark:text-cyan-500'><Link to={book.bookPDFURL} target ="_blank">Read Online</Link></button>
-                <button className='px-14 py-2 bg-blue-600 text-white rounded'><Link to={`/admin/dashboard/edit-books/${book._id}`}>+ Add</Link></button>
+                <button className='px-9 py-2 font-bold text-cyan-800 hover:underline dark:text-cyan-500'><Link to={book.pdf} target ="_blank">Read Online</Link></button>
+                <button className='px-14 py-2 bg-blue-600 text-white rounded'><Link to={`/admin/dashboard/edit-books/${book.id}`}>+ Add</Link></button>
               </div>
             </Card>)
           }

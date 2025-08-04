@@ -5,20 +5,25 @@ import { Spinner } from 'flowbite-react';
 
 
 const PrivateRoute = ({ children }) => {
-    const { user, loading } = useContext(AuthContext);
-    const location = useLocation();
+  const { user, loading } = useContext(AuthContext);
+  const location = useLocation();
 
-    if (loading) {
-        return <div className="text-center">
-            <Spinner aria-label="Center-aligned spinner example" />
-        </div>
-    }
+  const token = localStorage.getItem("token");
 
-    if (user) {
-        return children;
-    }
+  if (loading) {
+    return (
+      <div className="text-center">
+        <Spinner aria-label="Center-aligned spinner example" />
+      </div>
+    );
+  }
 
-    return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
+  if (user && token) {
+    return children;
+  }
+
+  return <Navigate to="/login" state={{ from: location }} replace />;
 };
+
 
 export default PrivateRoute;
