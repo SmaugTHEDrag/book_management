@@ -41,6 +41,34 @@ export default function Shop() {
     );
   }
 
+  const handleAddToFavorite = (bookId) => {
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:8080/api/favorites', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, 
+      },
+      body: JSON.stringify({ bookId }), // ✅ dùng đúng tham số
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          const errText = await res.text();
+          throw new Error(errText || 'Failed to add to favorites');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        alert('Book added to favorites!');
+      })
+      .catch((err) => {
+        console.error('Add favorite error:', err);
+        alert(err.message);
+      });
+  };
+
+
+
   // truncate make description less
   const truncateDescription = (description, maxLength) => {
     if (description.length <= maxLength) {
@@ -219,7 +247,7 @@ export default function Shop() {
               </p>
               <div style={{ display: 'flex' }}>
                 <button className='px-9 py-2 font-bold text-cyan-800 hover:underline dark:text-cyan-500'><Link to={book.pdf} target ="_blank">Read Online</Link></button>
-                <button className='px-14 py-2 bg-blue-600 text-white rounded'><Link to={`/admin/dashboard/edit-books/${book.id}`}>+ Add</Link></button>
+                <button className='px-14 py-2 bg-blue-600 text-white rounded' onClick={() => handleAddToFavorite(book.id)}> Favorite</button>
               </div>
             </Card>)
           }

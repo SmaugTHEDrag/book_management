@@ -16,6 +16,7 @@ import About from "../pages/about/About";
 import Blog from "../pages/blog/Blog";
 import ManageBooks from "../Dashboard/ManageBooks";
 import Favorite from "../Dashboard/Favorite";
+import ManageUsers from "../Dashboard/ManageUsers";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -52,6 +53,8 @@ const router = createBrowserRouter([
       { path: "", element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>},
       { path: "/admin/dashboard/upload", element: <UploadBook /> },
       { path: "/admin/dashboard/manage", element: <ManageBooks /> },
+      { path: "/admin/dashboard/manage-users", element: <ManageUsers /> },
+      { path: "/admin/dashboard/favorite", element: <Favorite /> },
       { path: "/admin/dashboard/favorite", element: <PrivateRoute><Favorite /></PrivateRoute> },
       { path: "/admin/dashboard/edit-books/:id", element: <EditBooks />,
       loader: ({ params }) => fetch(`http://localhost:8080/api/books/${params.id}`)

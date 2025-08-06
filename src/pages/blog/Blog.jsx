@@ -16,7 +16,7 @@ const posts = [
       role: 'Normal student',
       href: '#',
       imageUrl:
-        'https://cdn.discordapp.com/attachments/984481824065617952/1100315739916873768/338940319_244271794681709_3908198250391232581_n.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
     },
   },
   {
@@ -33,7 +33,7 @@ const posts = [
       role: 'Prize fighter',
       href: '#',
       imageUrl:
-        'https://scontent.fsgn5-3.fna.fbcdn.net/v/t1.15752-9/369209682_143725865400335_1970477301954967517_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeGoq0aFGdXLz6_YjlUwCYAVrmeoU3Eb1UauZ6hTcRvVRqSfaHXdilBWP0IUGfPRUpPcU_QwZkTRIx1vnhOpAcUq&_nc_ohc=CZ97a7S17csAX_QNzJD&_nc_ht=scontent.fsgn5-3.fna&oh=03_AdTyfVGfMDA_G4wqiYtwOxQbnOPhXtAYbhaFFUOW_oHljg&oe=65BE33BD',
+        'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
     },
   },
   {
@@ -50,7 +50,7 @@ const posts = [
       role: 'Leader/ANTI LGBT club',
       href: '#',
       imageUrl:
-        'https://cdn.discordapp.com/attachments/984481824065617952/1100315740420198410/339301656_3309074886010779_5177668617428147388_n.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
     },
   },
   // More posts...

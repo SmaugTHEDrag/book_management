@@ -1,87 +1,124 @@
-import { Table } from 'flowbite-react';
-import React, { useEffect, useState } from 'react';
-import { Pagination } from 'flowbite-react';
-import { Link } from 'react-router-dom';
-import resume from '../assets/Weyward.pdf';
-import { FaDownload, FaRegEye} from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { Table } from "flowbite-react";
+import { Link } from "react-router-dom";
+
 const Favorite = () => {
-  const booksPerPage = 10;
-  const [allBooks, setAllBooks] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [favorites, setFavorites] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch(`https://book-management-4qw7.onrender.com/all-favorite-books`)
-      .then((res) => res.json())
-      .then((data) => {
-        setAllBooks(data);
-      });
-  }, []); // Reload the favorite books when a book is added
+  const fetchFavorites = async () => {
+    const token = localStorage.getItem("token");
 
-  
-  // Delete a book from favorites
-  const handleDelete = (id) => {
-    // console.log(id)
-    fetch(`https://book-management-4qw7.onrender.com/favorite-book/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        // setAllBooks(data);
+    if (!token) {
+      alert("You must be logged in to view favorites.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:8080/api/favorites", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch favorite books");
+      }
+
+      const data = await res.json();
+      setFavorites(data);
+    } catch (error) {
+      console.error("Error fetching favorites:", error);
+      alert("Error fetching favorite books");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Pagination
-  const indexOfLastBook = currentPage * booksPerPage;
-  const indexOfFirstBook = indexOfLastBook - booksPerPage;
-  const currentBooks = allBooks.slice(indexOfFirstBook, indexOfLastBook);
+  const removeFavorite = async (bookId) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const res = await fetch(`http://localhost:8080/api/favorites/${bookId}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to remove favorite");
+      }
+
+      setFavorites((prev) => prev.filter((book) => book.bookId !== bookId));
+      alert("Removed from favorites!");
+    } catch (error) {
+      console.error("Error removing favorite:", error);
+      alert("Error removing favorite");
+    }
+  };
+
+  useEffect(() => {
+    fetchFavorites();
+  }, []);
+
+  if (loading) {
+    return <div className="text-center py-10 text-xl">Loading...</div>;
+  }
 
   return (
     <div className="px-4 my-12">
-      <h2 className="mb-8 text-3xl font-bold">Manage Your Favorite Books!</h2>
+      <h2 className="mb-8 text-3xl font-bold">Your Favorite Books</h2>
 
-      {/* Table */}
-      <Table className="lg:w-[1180px]">
-        <Table.Head>
-          <Table.HeadCell>No.</Table.HeadCell>
-          <Table.HeadCell>Book name</Table.HeadCell>
-          <Table.HeadCell>Author Name</Table.HeadCell>
-          <Table.HeadCell>Category</Table.HeadCell>
-          <Table.HeadCell>Manage favorite</Table.HeadCell>
-        </Table.Head>
+      {favorites.length === 0 ? (
+        <p>You have no favorite books yet.</p>
+      ) : (
+        <Table className="lg:w-[1180px]">
+          <Table.Head>
+            <Table.HeadCell>No.</Table.HeadCell>
+            <Table.HeadCell>Image</Table.HeadCell>
+            <Table.HeadCell>Book Name</Table.HeadCell>
+            <Table.HeadCell>Author</Table.HeadCell>
+            <Table.HeadCell>Category</Table.HeadCell>
+            <Table.HeadCell>Actions</Table.HeadCell>
+          </Table.Head>
 
-        {currentBooks.map((book, index) => (
-          <Table.Body className="divide-y" key={book._id}>
-            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                {(currentPage - 1) * booksPerPage + index + 1}
-              </Table.Cell>
-              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                {book.bookTitle}
-              </Table.Cell>
-              <Table.Cell>{book.authorName}</Table.Cell>
-              <Table.Cell>{book.category}</Table.Cell>
-              <Table.Cell>
-              <button className='bg-red-600 px-4 py-1 font-semibold text-white rounded-sm hover:bg-sky-600 mr-5' onClick={() => handleDelete(book._id)}>Delete</button>
-              <a className='font-medium text-cyan-600 hover:underline dark:text-cyan-500' href={book.bookPDFURL} target ="_blank">Read Online</a>
-              </Table.Cell>
-            </Table.Row>
-          </Table.Body>
-        ))}
-      </Table>
-
-      {/* Pagination */}
-      <div className="flex items-center justify-center text-center mt-8">
-        <Pagination
-          currentPage={currentPage}
-          layout="pagination"
-          nextLabel="Go forward"
-          onPageChange={(page) => setCurrentPage(page)}
-          previousLabel="Go back"
-          showIcons
-          totalPages={Math.ceil(allBooks.length / booksPerPage)}
-        />
-      </div>
+          {favorites.map((book, index) => (
+            <Table.Body key={book.bookId} className="divide-y">
+              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell>{index + 1}</Table.Cell>
+                <Table.Cell>
+                  <img
+                    src={book.image}
+                    alt={book.title}
+                    className="w-16 h-16 rounded-md"
+                  />
+                </Table.Cell>
+                <Table.Cell>{book.title}</Table.Cell>
+                <Table.Cell>{book.author}</Table.Cell>
+                <Table.Cell>{book.category}</Table.Cell>
+                <Table.Cell>
+                  <Link
+                    to={`/book/${book.bookId}`}
+                    className="text-blue-600 hover:underline mr-4"
+                  >
+                    View
+                  </Link>
+                  <button
+                    className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                    onClick={() => removeFavorite(book.bookId)}
+                  >
+                    Remove
+                  </button>
+                </Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          ))}
+        </Table>
+      )}
     </div>
   );
 };

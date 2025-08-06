@@ -54,6 +54,9 @@ const ManageBooks = () => {
                         No.
                     </Table.HeadCell>
                     <Table.HeadCell>
+                        Image
+                    </Table.HeadCell>
+                    <Table.HeadCell>
                         Book name
                     </Table.HeadCell>
                     <Table.HeadCell>
@@ -61,9 +64,6 @@ const ManageBooks = () => {
                     </Table.HeadCell>
                     <Table.HeadCell>
                         Category
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                        Price
                     </Table.HeadCell>
                     <Table.HeadCell>
                         Edit or Manage
@@ -76,6 +76,9 @@ const ManageBooks = () => {
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                 {index + 1}
                             </Table.Cell>
+                            <Table.Cell>
+                                <img className='w-20 h-20 rounded-md' src={book.image} alt={book.title} />
+                            </Table.Cell>
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                 {book.title}
                             </Table.Cell>
@@ -84,9 +87,6 @@ const ManageBooks = () => {
                             </Table.Cell>
                             <Table.Cell>
                                 {book.category}
-                            </Table.Cell>
-                            <Table.Cell>
-                                $10.99
                             </Table.Cell>
                             <Table.Cell>
                                 <Link

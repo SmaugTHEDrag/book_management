@@ -1,7 +1,8 @@
 import { Sidebar } from 'flowbite-react';
 import {
   HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag,
-  HiSupport, HiTable, HiUser, HiViewBoards, HiOutlineCloudUpload
+  HiSupport, HiTable, HiUser, HiViewBoards, HiOutlineCloudUpload,
+  HiArrowSmLeft, HiHeart
 } from 'react-icons/hi';
 
 import img from '../../src/assets/profile.jpg';
@@ -37,14 +38,14 @@ const SideBar = () => {
             <Sidebar.Item href="/admin/dashboard/manage" icon={HiInbox}>
               Manage Books
             </Sidebar.Item>
-            <Sidebar.Item href="/admin/dashboard/users" icon={HiUser}>
+            <Sidebar.Item href="/admin/dashboard/manage-users" icon={HiUser}>
               Users
             </Sidebar.Item>
-            <Sidebar.Item href="/admin/dashboard/products" icon={HiShoppingBag}>
-              Products
+            <Sidebar.Item href="/admin/dashboard/favorite" icon={HiHeart}>
+              Favorite
             </Sidebar.Item>
-            <Sidebar.Item href="/login" icon={HiArrowSmRight}>
-              Sign In
+            <Sidebar.Item href="/" icon={HiArrowSmLeft}>
+              Back to Home
             </Sidebar.Item>
             <Sidebar.Item href="/logout" icon={HiTable}>
               Log out
