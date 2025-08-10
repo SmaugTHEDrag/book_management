@@ -246,7 +246,7 @@ export default function Shop() {
                 <Link to={`/book/${book.id}`} className='cursor-pointer text-blue-700'>Show more</Link>
               </p>
               <div style={{ display: 'flex' }}>
-                <button className='px-9 py-2 font-bold text-cyan-800 hover:underline dark:text-cyan-500'><Link to={book.pdf} target ="_blank">Read Online</Link></button>
+                <button className='px-9 py-2 font-bold text-cyan-800 hover:underline dark:text-cyan-500'><Link to={`/book/${book.id}/read`}>Read Online</Link></button>
                 <button className='px-14 py-2 bg-blue-600 text-white rounded' onClick={() => handleAddToFavorite(book.id)}> Favorite</button>
               </div>
             </Card>)

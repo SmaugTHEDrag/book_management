@@ -17,6 +17,7 @@ import Blog from "../pages/blog/Blog";
 import ManageBooks from "../Dashboard/ManageBooks";
 import Favorite from "../Dashboard/Favorite";
 import ManageUsers from "../Dashboard/ManageUsers";
+import BookReader from "../pages/shared/BookReader";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         path: "/book/:id",
         element: <SingleBook />,
         loader: ({ params }) => fetch(`http://localhost:8080/api/books/${params.id}`)
+      },
+      {
+        path: "/book/:id/read",
+        element: <BookReader />,
       },
       {
         path: "/about",

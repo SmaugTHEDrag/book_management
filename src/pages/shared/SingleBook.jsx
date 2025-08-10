@@ -47,8 +47,8 @@ const SingleBook = () => {
         <div className="w-full lg:w-2.3/3 space-y-6">
           <h1 className="text-4xl lg:text-6xl font-bold text-gray-900">{title}</h1>
           <h2 className="text-xl lg:text-2xl italic text-gray-600">By {author}</h2>
-          <p className="text-lg leading-relaxed italic text-gray-700">Description: {description}</p>
-          <p className="text-md text-gray-800">Category: <span className="font-semibold">{category}</span></p>
+          <p className="text-lg leading-relaxed italic text-gray-700 font-bold">Description: <p className='italic font-medium'> {description} </p></p>
+          <p className="text-md text-gray-800 font-bold">Category: <span className="font-medium italic">{category}</span></p>
         </div>
       </div>
     </div>

@@ -7,12 +7,25 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Đọc token + user từ localStorage (nếu có)
     const token = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
 
     if (token && storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        const parsedUser = JSON.parse(storedUser);
+
+        if (!parsedUser.role) {
+          console.warn("User object does not contain role!");
+          parsedUser.role = "CUSTOMER"; // Hoặc role mặc định bạn muốn
+        }
+
+        setUser(parsedUser);
+      } catch (error) {
+        console.error("Failed to parse stored user:", error);
+        setUser(null);
+      }
+    } else {
+      setUser(null);
     }
 
     setLoading(false);
