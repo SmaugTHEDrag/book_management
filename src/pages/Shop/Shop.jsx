@@ -1,257 +1,210 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import { Card, Spinner } from 'flowbite-react';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { Link } from 'react-router-dom';
+
 export default function Shop() {
   const { loading } = useContext(AuthContext);
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [addingFavoriteId, setAddingFavoriteId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
-  //fetching data
+  const categories = [
+    'Fiction', 'Fantasy', 'Thriller', 'Historical', 'Mystery', 'Horror',
+    'Comic', 'Crime', 'Science-Fiction', 'Psychology', 'Art', 'Romance',
+    'Biography', 'Cookbooks', 'Programming', 'Machine-learning',
+  ];
+
+  const booksPerPage = 9;
+
   useEffect(() => {
-    fetch('http://localhost:8080/api/books')
-      .then((res) => res.json())
-      .then((data) => {
-        const filteredBooks = data.filter((book) =>
-          book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          book.author.toLowerCase().includes(searchQuery.toLowerCase()) 
-        );
-        // Filter books based on selected categories
-        if (selectedCategories.length > 0) {
-        const categoryFilteredBooks = filteredBooks.filter((book) => {
-        const bookCategories = book.category.split(' '); // categories are space-separated
-        return selectedCategories.some((selectedCategory) =>
-          bookCategories.includes(selectedCategory)
-         );
-        });
-        setBooks(categoryFilteredBooks);
-         } else {
-        setBooks(filteredBooks);
-        }
-      });
-  }, [loading, searchQuery, selectedCategories]);
+    const fetchBooks = async () => {
+      try {
+        setIsLoading(true);
+        const categoryParam = selectedCategories.length > 0 
+          ? encodeURIComponent(selectedCategories.join(','))
+          : '';
 
-  // loader
-  if (loading) {
-    return (
-      <div className="text-center mt-28">
-        <Spinner aria-label="Center-aligned spinner example" />
-      </div>
+        const url = `http://localhost:8080/api/books?search=${encodeURIComponent(
+          searchQuery
+        )}&categorySearch=${categoryParam}&page=${currentPage}&size=${booksPerPage}`;
+
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Failed to fetch books');
+
+        const data = await res.json();
+        setBooks(data.content || []);
+        setTotalPages(data.totalPages || 0);
+      } catch (err) {
+        console.error('Error fetching books:', err);
+        alert('Failed to load books. Please try again later.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBooks();
+  }, [searchQuery, selectedCategories, currentPage]);
+
+  // Reset to first page when search query or categories change
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [searchQuery, selectedCategories]);
+
+  const handleAddToFavorite = async (bookId) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error('You must be logged in to add favorites');
+
+      setAddingFavoriteId(bookId);
+
+      const res = await fetch('http://localhost:8080/api/favorites', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ bookId }),
+      });
+
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText || 'Failed to add to favorites');
+      }
+
+      alert('Book added to favorites!');
+    } catch (err) {
+      console.error('Add favorite error:', err);
+      alert(err.message);
+    } finally {
+      setAddingFavoriteId(null);
+    }
+  };
+
+  const truncateDescription = (desc, max) => desc?.length > max ? desc.slice(0, max) + '...' : desc || '';
+
+  const handleCheckboxChange = (category) => {
+    setSelectedCategories(prev =>
+      prev.includes(category) ? prev.filter(c => c !== category) : [...prev, category]
     );
-  }
-
-  const handleAddToFavorite = (bookId) => {
-    const token = localStorage.getItem('token');
-    fetch('http://localhost:8080/api/favorites', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, 
-      },
-      body: JSON.stringify({ bookId }), // ✅ dùng đúng tham số
-    })
-      .then(async (res) => {
-        if (!res.ok) {
-          const errText = await res.text();
-          throw new Error(errText || 'Failed to add to favorites');
-        }
-        return res.json();
-      })
-      .then((data) => {
-        alert('Book added to favorites!');
-      })
-      .catch((err) => {
-        console.error('Add favorite error:', err);
-        alert(err.message);
-      });
   };
 
-
-
-  // truncate make description less
-  const truncateDescription = (description, maxLength) => {
-    if (description.length <= maxLength) {
-      return description;
-    }
-    return description.slice(0, maxLength) + '...';
+  const handlePrevPage = () => {
+    if (currentPage > 0) setCurrentPage(prev => prev - 1);
   };
 
-  // checkbox with category search
-  function handleCheckboxChange(category) {
-    if (selectedCategories.includes(category)) {
-      setSelectedCategories((prev) => prev.filter((item) => item !== category));
-    } else {
-      setSelectedCategories((prev) => [...prev, category]);
-    }
-  }
+  const handleNextPage = () => {
+    if (currentPage < totalPages - 1) setCurrentPage(prev => prev + 1);
+  };
+
   return (
-    <div className='my-20 px-4 lg:px-24'>
-      <h2 className='text-3xl font-bold text-center mb-7 z-40'>All Books are Available Here</h2>
-      <div className='mb-4 text-center'>
+    <div className="my-20 px-4 lg:px-24">
+      <h2 className="text-3xl font-bold text-center mb-7">All Books are Available Here</h2>
+
+      {/* Search Input */}
+      <div className="mb-4 text-center flex justify-center">
         <input
-          type='text'
-          placeholder='Book Title / Book Author'
+          type="text"
+          placeholder="Search by Title or Author"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className='px-6 py-2 border rounded'
+          onChange={e => setSearchQuery(e.target.value)}
+          className="px-6 py-2 border rounded w-80"
+          aria-label="Search by book title or author"
         />
       </div>
 
-      <div className='mb-8 text-center font-bold'>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='fictionCheckbox'
-            onChange={() => handleCheckboxChange('Fiction')}
-          />
-          Fiction
-        </label>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='fantasyCheckbox'
-            onChange={() => handleCheckboxChange('Fantasy')}
-          />
-          Fantasy
-        </label>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='thrillerCheckbox'
-            onChange={() => handleCheckboxChange('Thriller')}
-          />
-          Thriller
-        </label>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='historicalCheckbox'
-            onChange={() => handleCheckboxChange('Historical')}
-          />
-          Historical
-        </label>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='mysteryCheckbox'
-            onChange={() => handleCheckboxChange('Mystery')}
-          />
-          Mystery 
-        </label>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='horrorCheckbox'
-            onChange={() => handleCheckboxChange('Horror')}
-          />
-          Horror
-        </label>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='comicCheckbox'
-            onChange={() => handleCheckboxChange('Comic')}
-          />
-          Comic 
-        </label>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='crimeCheckbox'
-            onChange={() => handleCheckboxChange('Crime')}
-          />
-          Crime
-        </label>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='sciencefictionCheckbox'
-            onChange={() => handleCheckboxChange('Science-Fiction')}
-          />
-          Science-Fiction
-        </label>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='psychologyCheckbox'
-            onChange={() => handleCheckboxChange('Psychology')}
-          />
-          Psychology
-        </label>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='artCheckbox'
-            onChange={() => handleCheckboxChange('Art')}
-          />
-          Art
-        </label>
-        <label className='mr-2'>
-          <input
-            type='checkbox'
-            id='romanceCheckbox'
-            onChange={() => handleCheckboxChange('Romance')}
-          />
-          Romance
-        </label>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='biographyCheckbox'
-            onChange={() => handleCheckboxChange('Biography')}
-          />
-          Biography
-        </label>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='cookingCheckbox'
-            onChange={() => handleCheckboxChange('Cookbooks')}
-          />
-          Cookbooks
-        </label>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='programmingCheckbox'
-            onChange={() => handleCheckboxChange('Programming')}
-          />
-          Programming
-        </label>
-        <label className='mr-5'>
-          <input
-            type='checkbox'
-            id='machinelearningCheckbox'
-            onChange={() => handleCheckboxChange('Machine-learning')}
-          />
-          Machine-learning
-        </label>
+      {/* Category Filters */}
+      <div className="mb-8 text-center font-bold flex flex-wrap justify-center gap-4">
+        {categories.map(cat => (
+          <label key={cat} className="flex items-center mr-5">
+            <input
+              type="checkbox"
+              checked={selectedCategories.includes(cat)}
+              onChange={() => handleCheckboxChange(cat)}
+              className="mr-2"
+              aria-label={`Filter by ${cat}`}
+            />
+            {cat}
+          </label>
+        ))}
       </div>
 
-        <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8'>
-          {
-            books.map(book => <Card>
-              <img src={book.image} alt="" className='h-96' />
-              <h5 className="text-2xl font-bold text-center tracking-tight text-gray-900 dark:text-white">
-                <p>
-                  {book.title} 
-                </p>
-              </h5>
-              <h6 className="font-medium text-center">{book.authorName}</h6>
-              <p className="font-normal text-gray-700 dark:text-gray-400">
-                <p>
-                {truncateDescription(book.description, 150)}
-                </p>
-                <Link to={`/book/${book.id}`} className='cursor-pointer text-blue-700'>Show more</Link>
-              </p>
-              <div style={{ display: 'flex' }}>
-                <button className='px-9 py-2 font-bold text-cyan-800 hover:underline dark:text-cyan-500'><Link to={`/book/${book.id}/read`}>Read Online</Link></button>
-                <button className='px-14 py-2 bg-blue-600 text-white rounded' onClick={() => handleAddToFavorite(book.id)}> Favorite</button>
-              </div>
-            </Card>)
-          }
+      {/* Loading Spinner */}
+      {(loading || isLoading) ? (
+        <div className="text-center mt-28">
+          <Spinner aria-label="Loading spinner" />
         </div>
+      ) : (
+        <>
+          {/* Books Grid */}
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 mb-8">
+            {books.length === 0 ? (
+              <p className="text-center col-span-full">No books found.</p>
+            ) : (
+              books.map(book => (
+                <Card key={book.id}>
+                  <img src={book.image} alt={book.title} className="w-full h-full object-cover"/>
+                  <h5 className="text-2xl font-bold text-center">{book.title}</h5>
+                  <h6 className="text-center">{book.author}</h6>
+                  <p>
+                    {truncateDescription(book.description, 150)}
+                    <Link to={`/book/${book.id}`} className="text-blue-700 ml-2">Show more</Link>
+                  </p>
+                  <div className="flex justify-between mt-2">
+                    <Link to={`/book/${book.id}/read`} className="px-4 py-2 font-bold text-cyan-800 hover:underline">Read Online</Link>
+                    <button
+                      className="px-4 py-2 bg-red-500 text-white rounded flex items-center gap-2 disabled:opacity-50"
+                      onClick={() => handleAddToFavorite(book.id)}
+                      disabled={addingFavoriteId === book.id}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-5 h-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      {addingFavoriteId === book.id ? 'Adding...' : 'Add to Favorites'}
+                    </button>
+
+                  </div>
+                </Card>
+              ))
+            )}
+          </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center gap-4 mt-8">
+              <button
+                onClick={handlePrevPage}
+                disabled={currentPage === 0}
+                className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600"
+              >
+                Prev
+              </button>
+
+              <span className="text-lg font-medium">
+                Page {currentPage + 1} of {totalPages}
+              </span>
+
+              <button
+                onClick={handleNextPage}
+                disabled={currentPage >= totalPages - 1}
+                className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600"
+              >
+                Next
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </div>
-  )
+  );
 }

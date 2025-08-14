@@ -8,23 +8,14 @@ export default function BookReader() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
-    setPdfUrl('');
-
     fetch(`http://localhost:8080/api/books/${id}`)
       .then(res => {
-        if (!res.ok) {
-          throw new Error('Failed to fetch book data');
-        }
+        if (!res.ok) throw new Error('Failed to fetch book data');
         return res.json();
       })
       .then(data => {
-        if (!data.pdf) {
-          throw new Error('No PDF link provided');
-        }
-        const previewUrl = data.pdf.replace('/view', '/preview');
-        setPdfUrl(previewUrl);
+        if (!data.pdf) throw new Error('No PDF link provided');
+        setPdfUrl(`/ViewerJS/#${data.pdf}`); // Thêm đường dẫn vào ViewerJS
         setLoading(false);
       })
       .catch(err => {
@@ -34,22 +25,18 @@ export default function BookReader() {
   }, [id]);
 
   return (
-    <div className="w-full h-screen flex flex-col items-start justify-start bg-gray-100 p-4 mt-[60px]">
-      {/* Link quay lại */}
-      <Link
-        to="/shop"
-        className="text-black-700 hover:underline mb-10 block text-2xl lg:text-3xl font-bold flex items-center gap-2 self-start"
-      >
+    <div className="w-full h-screen flex flex-col bg-gray-100 p-4 mt-[60px]">
+      <Link to="/shop" className="mb-10 text-2xl font-bold">
         ← Back to Shop
       </Link>
 
-      {loading && <p className="text-gray-600">Loading PDF...</p>}
+      {loading && <p>Loading PDF...</p>}
       {error && <p className="text-red-500">Error: {error}</p>}
-      {pdfUrl && !loading && !error && (
+      {pdfUrl && (
         <iframe
           src={pdfUrl}
-          className="w-full h-[80vh] border-none shadow-lg rounded-lg"
-          title="Book PDF Viewer"
+          className="w-full h-[80vh] border-none"
+          title="PDF Viewer"
         />
       )}
     </div>

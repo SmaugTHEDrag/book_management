@@ -5,8 +5,14 @@ const OtherBooks = () => {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/books").then(res => res.json()).then(data => setBooks(data.slice(9, 17)))
-    }, [])
+        fetch("http://localhost:8080/api/books?page=0&size=8") // fetch 8 books trực tiếp từ backend
+        .then((res) => res.json())
+        .then((data) => {
+            const bookList = data.content || []; // lấy content nếu có
+            setBooks(bookList);
+        })
+        .catch((err) => console.error("Error fetching books:", err));
+    }, []);
 
     return (
         <div className='mt-24'>
