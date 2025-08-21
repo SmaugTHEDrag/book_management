@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom'
 import { AuthContext } from './contexts/AuthProvider'
 import Navbar from './pages/shared/Navbar'
 import FooterMain from './pages/shared/FooterMain'
+import Chatbot from './pages/shared/ChatBot'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <Navbar/>
       <div className='min-h-screen'>
       <Outlet/>
+      <Chatbot/>
       </div>
       <FooterMain/>
     </>
