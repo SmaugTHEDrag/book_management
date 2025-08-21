@@ -18,6 +18,7 @@ import ManageBooks from "../Dashboard/ManageBooks";
 import Favorite from "../Dashboard/Favorite";
 import ManageUsers from "../Dashboard/ManageUsers";
 import BookReader from "../pages/shared/BookReader";
+import BlogDetail from "../pages/blog/BlogDetail";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,6 +49,11 @@ const router = createBrowserRouter([
       {
         path: "/blog",
         element: <Blog/>
+      },
+      {
+        path: "/blog/:id",
+        element: <BlogDetail />,
+        loader: ({ params }) => fetch(`http://localhost:8080/api/blogs/${params.id}`)
       }
     ]
   },

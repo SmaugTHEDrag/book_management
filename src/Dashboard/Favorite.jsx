@@ -66,7 +66,14 @@ const Favorite = () => {
   }, []);
 
   if (loading) {
-    return <div className="text-center py-10 text-xl">Loading...</div>;
+    return (
+      <div className="w-full max-w-[1180px] mx-auto flex flex-col items-center justify-center py-20">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-blue-200 rounded-full animate-spin border-t-blue-600"></div>
+          <p className="text-gray-600 text-lg font-medium">Loading favorites...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -76,14 +83,14 @@ const Favorite = () => {
       {favorites.length === 0 ? (
         <p>You have no favorite books yet.</p>
       ) : (
-        <Table className="lg:w-[1180px]">
+        <Table className="lg:w-[1180px] table-fixed">
           <Table.Head>
-            <Table.HeadCell>No.</Table.HeadCell>
-            <Table.HeadCell>Image</Table.HeadCell>
-            <Table.HeadCell>Book Name</Table.HeadCell>
-            <Table.HeadCell>Author</Table.HeadCell>
-            <Table.HeadCell>Category</Table.HeadCell>
-            <Table.HeadCell>Actions</Table.HeadCell>
+            <Table.HeadCell className="w-12">No.</Table.HeadCell>
+            <Table.HeadCell className="w-20">Image</Table.HeadCell>
+            <Table.HeadCell className="w-48">Book name</Table.HeadCell>
+            <Table.HeadCell className="w-36">Author Name</Table.HeadCell>
+            <Table.HeadCell className="w-52">Category</Table.HeadCell>
+            <Table.HeadCell className="w-36">Actions</Table.HeadCell>
           </Table.Head>
 
           {favorites.map((book, index) => (
@@ -94,12 +101,12 @@ const Favorite = () => {
                   <img
                     src={book.image}
                     alt={book.title}
-                    className="w-16 h-16 rounded-md"
+                    className="w-16 h-16 rounded-md "
                   />
                 </Table.Cell>
-                <Table.Cell>{book.title}</Table.Cell>
-                <Table.Cell>{book.author}</Table.Cell>
-                <Table.Cell>{book.category}</Table.Cell>
+                <Table.Cell className="truncate">{book.title}</Table.Cell>
+                <Table.Cell className="truncate">{book.author}</Table.Cell>
+                <Table.Cell className="truncate">{book.category}</Table.Cell>
                 <Table.Cell>
                   <Link
                     to={`/book/${book.bookId}`}

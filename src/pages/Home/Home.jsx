@@ -6,6 +6,7 @@ import BestSeller from './BestSeller'
 import OtherBooks from './OtherBooks'
 
 import Review from './Review'
+import Chatbot from '../shared/ChatBot'
 
 export const Home = () => {
   return (
@@ -13,7 +14,7 @@ export const Home = () => {
       <Banner/>
       <BestSeller/>
       <FavoriteBook/>
-
+      <Chatbot/>
       <OtherBooks/>
       <Review/>
     </div>

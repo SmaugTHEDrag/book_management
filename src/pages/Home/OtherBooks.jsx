@@ -5,7 +5,7 @@ const OtherBooks = () => {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/books?page=0&size=8") // fetch 8 books trực tiếp từ backend
+        fetch("http://localhost:8080/api/books?page=1&size=8") // fetch 8 books trực tiếp từ backend
         .then((res) => res.json())
         .then((data) => {
             const bookList = data.content || []; // lấy content nếu có

@@ -132,9 +132,12 @@ export default function Shop() {
 
       {/* Loading Spinner */}
       {(loading || isLoading) ? (
-        <div className="text-center mt-28">
-          <Spinner aria-label="Loading spinner" />
+      <div className="w-full max-w-[1180px] mx-auto flex flex-col items-center justify-center py-20">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-blue-200 rounded-full animate-spin border-t-blue-600"></div>
+          <p className="text-gray-600 text-lg font-medium">Loading library...</p>
         </div>
+      </div>
       ) : (
         <>
           {/* Books Grid */}
