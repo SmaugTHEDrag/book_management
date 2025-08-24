@@ -15,7 +15,12 @@ export default function BookReader() {
       })
       .then(data => {
         if (!data.pdf) throw new Error('No PDF link provided');
-        setPdfUrl(`/ViewerJS/#${data.pdf}`); // Thêm đường dẫn vào ViewerJS
+
+        // Đảm bảo encode đúng URL của file PDF
+        const pdfPath = encodeURIComponent(data.pdf);
+
+        // Trỏ đúng vào ViewerJS trong public
+        setPdfUrl(`/ViewerJS/#${pdfPath}`);
         setLoading(false);
       })
       .catch(err => {
