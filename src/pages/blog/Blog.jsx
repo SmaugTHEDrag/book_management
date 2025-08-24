@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "flowbite-react";
 import { AuthContext } from "../../contexts/AuthProvider";
+import Chatbot from "../shared/ChatBot";
 import { AiOutlineHeart, AiFillHeart, AiOutlineMessage, AiOutlineEdit, AiOutlineDelete, AiOutlinePlus } from "react-icons/ai";
 
 const Comment = ({ comment, onReply, onDelete, depth = 0 }) => {
@@ -560,6 +561,9 @@ const Blog = () => {
           </div>
         )}
       </div>
+    <div className="fixed bottom-6 right-6 z-50">
+      <Chatbot />
+    </div>
     </div>
   );
 };

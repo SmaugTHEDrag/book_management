@@ -1,5 +1,6 @@
 import React from 'react';
 import './About.css'
+import Chatbot from '../shared/ChatBot';
 const TeamMember = ({ name, imageSrc, job, job2 }) => (
   <li className="team-member-listing-item text-center">
     <div className="team-member-img-wrap">
@@ -55,7 +56,11 @@ const About = () => (
         </div>
       </div>
     </div>
+    <div className="fixed bottom-6 right-6 z-50">
+      <Chatbot />
+    </div>
   </section>
 );
+
 
 export default About;

@@ -15,7 +15,6 @@ function App() {
       <Navbar/>
       <div className='min-h-screen'>
       <Outlet/>
-      <Chatbot/>
       </div>
       <FooterMain/>
     </>

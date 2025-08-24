@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Card, Spinner } from 'flowbite-react';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { Link } from 'react-router-dom';
-
+import Chatbot from '../shared/ChatBot'; 
 export default function Shop() {
   const { loading } = useContext(AuthContext);
   const [books, setBooks] = useState([]);
@@ -208,6 +208,9 @@ export default function Shop() {
           )}
         </>
       )}
+    <div className="fixed bottom-6 right-6 z-50">
+      <Chatbot />
+    </div>
     </div>
   );
 }

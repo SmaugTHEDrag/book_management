@@ -4,7 +4,7 @@ import { Banner, Spinner } from 'flowbite-react';
 import { HiArrowSmLeft } from 'react-icons/hi';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import './SingleBook.css';
-
+import Chatbot from './ChatBot';
 const SingleBook = () => {
   const { id } = useParams();
   const [book, setBook] = useState(null);
@@ -177,6 +177,9 @@ const SingleBook = () => {
           </div>
         </div>
       </div>
+    <div className="fixed bottom-6 right-6 z-50">
+      <Chatbot />
+    </div>
     </div>
   );
 };
