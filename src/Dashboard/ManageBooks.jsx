@@ -18,7 +18,7 @@ const ManageBooks = () => {
   const fetchBooks = async (page = 0) => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:8080/api/books?page=${page}&size=${pageSize}`, {
+      const res = await fetch(`https://book-management-backend-d481.onrender.com/api/books?page=${page}&size=${pageSize}`, {
         headers: {
           "Authorization": `Bearer ${token}`, // nếu backend có bảo vệ
         },
@@ -45,7 +45,7 @@ const ManageBooks = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:8080/api/books/${id}`, {
+      const res = await fetch(`https://book-management-backend-d481.onrender.com/api/books/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`,

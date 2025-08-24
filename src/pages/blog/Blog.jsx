@@ -103,7 +103,7 @@ const Blog = () => {
   const fetchBlogs = async () => {
     try {
       setLoadingBlogs(true);
-      const res = await axios.get("http://localhost:8080/api/blogs", {
+      const res = await axios.get("https://book-management-backend-d481.onrender.com/api/blogs", {
         headers: authHeaders,
       });
       const data = await Promise.all(
@@ -112,7 +112,7 @@ const Blog = () => {
           if (isLoggedIn) {
             try {
               const likeRes = await axios.get(
-                `http://localhost:8080/api/blogs/${blog.id}/likes/has`,
+                `https://book-management-backend-d481.onrender.com/api/blogs/${blog.id}/likes/has`,
                 { headers: authHeaders }
               );
               hasLiked = likeRes.data;
@@ -140,12 +140,12 @@ const Blog = () => {
     if (!isLoggedIn) return;
     try {
       if (blog.hasLiked) {
-        await axios.delete(`http://localhost:8080/api/blogs/${blogId}/likes`, {
+        await axios.delete(`https://book-management-backend-d481.onrender.com/api/blogs/${blogId}/likes`, {
           headers: authHeaders,
         });
       } else {
         await axios.post(
-          `http://localhost:8080/api/blogs/${blogId}/likes`,
+          `https://book-management-backend-d481.onrender.com/api/blogs/${blogId}/likes`,
           {},
           { headers: authHeaders }
         );
@@ -159,7 +159,7 @@ const Blog = () => {
   const addComment = async (blogId, content, parentId = null) => {
     try {
       await axios.post(
-        `http://localhost:8080/api/blogs/${blogId}/comments`,
+        `https://book-management-backend-d481.onrender.com/api/blogs/${blogId}/comments`,
         {
           blogId,
           content,
@@ -175,7 +175,7 @@ const Blog = () => {
 
   const deleteComment = async (commentId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/blogs/comments/${commentId}`, {
+      await axios.delete(`https://book-management-backend-d481.onrender.com/api/blogs/comments/${commentId}`, {
         headers: authHeaders,
       });
       fetchBlogs();
@@ -188,7 +188,7 @@ const Blog = () => {
     if (!creating.title.trim() || !creating.content.trim()) return;
     try {
       await axios.post(
-        "http://localhost:8080/api/blogs",
+        "https://book-management-backend-d481.onrender.com/api/blogs",
         {
           title: creating.title.trim(),
           content: creating.content.trim(),
@@ -227,7 +227,7 @@ const Blog = () => {
     if (!data) return;
     try {
       await axios.put(
-        `http://localhost:8080/api/blogs/${postId}`,
+        `https://book-management-backend-d481.onrender.com/api/blogs/${postId}`,
         {
           title: data.title.trim(),
           content: data.content.trim(),
@@ -244,7 +244,7 @@ const Blog = () => {
 
   const removeBlog = async (postId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/blogs/${postId}`, {
+      await axios.delete(`https://book-management-backend-d481.onrender.com/api/blogs/${postId}`, {
         headers: authHeaders,
       });
       fetchBlogs();

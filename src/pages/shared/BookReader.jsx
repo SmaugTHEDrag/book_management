@@ -8,7 +8,7 @@ export default function BookReader() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/books/${id}`)
+    fetch(`https://book-management-backend-d481.onrender.com/api/books/${id}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch book data');
         return res.json();

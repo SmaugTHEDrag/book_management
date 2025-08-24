@@ -84,7 +84,7 @@ const Signup = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:8080/api/register", {
+      const res = await fetch("https://book-management-backend-d481.onrender.com/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

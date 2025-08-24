@@ -17,7 +17,7 @@ const SingleBook = () => {
     const fetchBook = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:8080/api/books/${id}`);
+        const res = await fetch(`https://book-management-backend-d481.onrender.com/api/books/${id}`);
         if (!res.ok) throw new Error('Failed to fetch book');
         const data = await res.json();
         setBook(data);
@@ -25,7 +25,7 @@ const SingleBook = () => {
         // Check if the book is already favorited (assuming an API endpoint exists)
         const token = localStorage.getItem('token');
         if (token) {
-          const likeRes = await fetch(`http://localhost:8080/api/favorites/${id}/has`, {
+          const likeRes = await fetch(`https://book-management-backend-d481.onrender.com/api/favorites/${id}/has`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           if (likeRes.ok) {
@@ -54,14 +54,14 @@ const SingleBook = () => {
 
       if (hasFavorited) {
         // Remove from favorites
-        await fetch(`http://localhost:8080/api/favorites/${bookId}`, {
+        await fetch(`https://book-management-backend-d481.onrender.com/api/favorites/${bookId}`, {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${token}` },
         });
         setHasFavorited(false);
       } else {
         // Add to favorites
-        await fetch(`http://localhost:8080/api/favorites`, {
+        await fetch(`https://book-management-backend-d481.onrender.com/api/favorites`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

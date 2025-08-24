@@ -29,7 +29,7 @@ export default function Shop() {
           ? encodeURIComponent(selectedCategories.join(','))
           : '';
 
-        const url = `http://localhost:8080/api/books?search=${encodeURIComponent(
+        const url = `https://book-management-backend-d481.onrender.com/api/books?search=${encodeURIComponent(
           searchQuery
         )}&categorySearch=${categoryParam}&page=${currentPage}&size=${booksPerPage}`;
 
@@ -62,7 +62,7 @@ export default function Shop() {
 
       setAddingFavoriteId(bookId);
 
-      const res = await fetch('http://localhost:8080/api/favorites', {
+      const res = await fetch('https://book-management-backend-d481.onrender.com/api/favorites', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ bookId }),

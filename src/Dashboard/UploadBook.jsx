@@ -24,7 +24,7 @@ const UploadBook = () => {
       pdf: bookPDFURL,
     };
 
-    fetch("http://localhost:8080/api/books", {
+    fetch("https://book-management-backend-d481.onrender.com/api/books", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

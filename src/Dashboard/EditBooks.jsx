@@ -22,7 +22,7 @@ const EditBooks = () => {
       pdf: form.pdf.value,
     };
 
-  fetch("http://localhost:8080/api/books/" + id, {
+  fetch("https://book-management-backend-d481.onrender.com/api/books/" + id, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

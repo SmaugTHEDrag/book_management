@@ -21,7 +21,7 @@ const Chatbot = () => {
   const chatBodyRef = useRef(null);
   
   // Spring Boot Backend Configuration
-  const BACKEND_BASE_URL = "http://localhost:8080/api";
+  const BACKEND_BASE_URL = "https://book-management-backend-d481.onrender.com/api";
   
   // Chat history for API context
   const [chatHistory, setChatHistory] = useState([]);
