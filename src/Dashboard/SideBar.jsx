@@ -59,18 +59,13 @@ const SideBar = () => {
             </Sidebar.Item>
           </Sidebar.ItemGroup>
 
+          {user?.role === "ADMIN" && (
           <Sidebar.ItemGroup>
             {/* Mấy cái link "#" thì vẫn giữ href, hoặc đổi thành button nếu có xử lý */}
-            <Sidebar.Item href="#" icon={HiChartPie}>
-              Upgrade to Pro
-            </Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiViewBoards}>
+            <Sidebar.Item href="https://book-management-backend-d481.onrender.com/swagger-ui/index.html" target="_blank" icon={HiViewBoards}>
               Documentation
             </Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiSupport}>
-              Help
-            </Sidebar.Item>
-          </Sidebar.ItemGroup>
+          </Sidebar.ItemGroup>)}
         </Sidebar.Items>
       </Sidebar>
 
