@@ -99,7 +99,7 @@ export default function Shop() {
   };
 
   return (
-    <div className="my-20 px-4 lg:px-24">
+    <div className="my-20 px-4 lg:px-24 ">
       <h2 className="text-3xl font-bold text-center mb-7">All Books are Available Here</h2>
 
       {/* Search Input */}

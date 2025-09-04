@@ -6,8 +6,68 @@ import { AuthContext } from "../../contexts/AuthProvider";
 import Chatbot from "../shared/ChatBot";
 import { AiOutlineHeart, AiFillHeart, AiOutlineMessage, AiOutlineEdit, AiOutlineDelete, AiOutlinePlus } from "react-icons/ai";
 
-const Comment = ({ comment, onReply, onDelete, depth = 0 }) => {
+const Comment = ({ comment, onReply, onDelete, onEdit, depth = 0, blogOwner, currentUser }) => {
   const { user } = useContext(AuthContext);
+  const [showReplyInput, setShowReplyInput] = useState(false);
+  const [replyContent, setReplyContent] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [editContent, setEditContent] = useState(comment.content);
+
+  // Determine if current user can delete this comment
+  const canDeleteComment = useMemo(() => {
+    if (!user?.login) return false;
+    
+    // Admin can delete any comment
+    if (user.role === "ADMIN") return true;
+    
+    // Comment owner can delete their own comment
+    if (user.login === comment.username) return true;
+    
+    // Blog owner can delete any comment on their blog
+    if (user.login === blogOwner) return true;
+    
+    return false;
+  }, [user, comment.username, blogOwner]);
+
+  // Determine if current user can edit this comment
+  const canEditComment = useMemo(() => {
+    if (!user?.login) return false;
+    
+    // Only comment owner can edit their own comment
+    if (user.login === comment.username) return true;
+    
+    // Admin can also edit any comment
+    if (user.role === "ADMIN") return true;
+    
+    return false;
+  }, [user, comment.username]);
+
+  const handleReplySubmit = () => {
+    if (replyContent.trim()) {
+      onReply(comment.id, replyContent.trim());
+      setReplyContent("");
+      setShowReplyInput(false);
+    }
+  };
+
+  const handleReplyCancel = () => {
+    setReplyContent("");
+    setShowReplyInput(false);
+  };
+
+  const handleEditSubmit = () => {
+    if (editContent.trim() && editContent.trim() !== comment.content) {
+      onEdit(comment.id, editContent.trim());
+      setIsEditing(false);
+    } else {
+      setIsEditing(false);
+    }
+  };
+
+  const handleEditCancel = () => {
+    setEditContent(comment.content);
+    setIsEditing(false);
+  };
 
   return (
     <div className={`${depth > 0 ? 'ml-6 mt-3' : 'mt-4'} relative`}>
@@ -22,37 +82,140 @@ const Comment = ({ comment, onReply, onDelete, depth = 0 }) => {
                 {comment.username?.charAt(0)?.toUpperCase()}
               </div>
               <span className="font-semibold text-gray-900 text-sm">{comment.username}</span>
+              {comment.username === blogOwner && (
+                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">Author</span>
+              )}
               <span className="text-xs text-gray-500">•</span>
               <span className="text-xs text-gray-500">just now</span>
             </div>
-            <p className="text-gray-700 text-sm leading-relaxed">{comment.content}</p>
+            
+            {isEditing ? (
+              <div className="space-y-3">
+                <textarea
+                  value={editContent}
+                  onChange={(e) => setEditContent(e.target.value)}
+                  className="w-full border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 px-3 py-2 rounded-lg min-h-[60px] transition-all resize-none text-sm"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+                      handleEditSubmit();
+                    }
+                    if (e.key === "Escape") {
+                      handleEditCancel();
+                    }
+                  }}
+                />
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-gray-500">Press Ctrl+Enter to save, Esc to cancel</p>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={handleEditCancel}
+                      className="px-3 py-1.5 text-xs text-gray-600 hover:text-gray-700 hover:bg-gray-100 rounded-md transition-colors font-medium"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleEditSubmit}
+                      disabled={!editContent.trim()}
+                      className="px-3 py-1.5 text-xs bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-md transition-colors font-medium"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <p className="text-gray-700 text-sm leading-relaxed">{comment.content}</p>
+            )}
           </div>
         </div>
         
-        <div className="flex items-center gap-4 mt-3">
-          {user?.login && (
-            <button
-              className="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 hover:bg-blue-50 px-2 py-1 rounded-md transition-colors"
-              onClick={() => {
-                const replyContent = prompt("Reply:");
-                if (replyContent) onReply(comment.id, replyContent);
-              }}
-            >
-              <AiOutlineMessage className="w-3 h-3" />
-              Reply
-            </button>
-          )}
-          {user?.login === comment.username && (
-            <button
-              className="text-xs text-red-600 hover:text-red-700 font-medium flex items-center gap-1 hover:bg-red-50 px-2 py-1 rounded-md transition-colors"
-              onClick={() => onDelete(comment.id)}
-            >
-              <AiOutlineDelete className="w-3 h-3" />
-              Delete
-            </button>
-          )}
-        </div>
+        {!isEditing && (
+          <div className="flex items-center gap-4 mt-3">
+            {user?.login && (
+              <button
+                className="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 hover:bg-blue-50 px-2 py-1 rounded-md transition-colors"
+                onClick={() => setShowReplyInput(!showReplyInput)}
+              >
+                <AiOutlineMessage className="w-3 h-3" />
+                Reply
+              </button>
+            )}
+            {canEditComment && (
+              <button
+                className="text-xs text-green-600 hover:text-green-700 font-medium flex items-center gap-1 hover:bg-green-50 px-2 py-1 rounded-md transition-colors"
+                onClick={() => setIsEditing(true)}
+                title="Edit your comment"
+              >
+                <AiOutlineEdit className="w-3 h-3" />
+                Edit
+              </button>
+            )}
+            {canDeleteComment && (
+              <button
+                className="text-xs text-red-600 hover:text-red-700 font-medium flex items-center gap-1 hover:bg-red-50 px-2 py-1 rounded-md transition-colors"
+                onClick={() => {
+                  const confirmMessage = user.login === comment.username 
+                    ? "Delete your comment?" 
+                    : user.login === blogOwner 
+                      ? "Delete this comment from your blog?" 
+                      : "Delete this comment?";
+                  
+                  if (confirm(confirmMessage)) {
+                    onDelete(comment.id);
+                  }
+                }}
+                title={
+                  user.login === comment.username 
+                    ? "Delete your comment" 
+                    : user.login === blogOwner 
+                      ? "Delete comment (as blog owner)" 
+                      : "Delete comment"
+                }
+              >
+                <AiOutlineDelete className="w-3 h-3" />
+                Delete
+              </button>
+            )}
+          </div>
+        )}
       </div>
+      
+      {/* Reply Input */}
+      {showReplyInput && !isEditing && (
+        <div className="mt-3 bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-blue-100">
+          <div className="space-y-3">
+            <textarea
+              value={replyContent}
+              onChange={(e) => setReplyContent(e.target.value)}
+              placeholder={`Reply to ${comment.username}...`}
+              className="w-full border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 px-4 py-3 rounded-xl min-h-[80px] transition-all resize-none text-sm"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+                  handleReplySubmit();
+                }
+              }}
+            />
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-gray-500">Press Ctrl+Enter to submit</p>
+              <div className="flex gap-2">
+                <button
+                  onClick={handleReplyCancel}
+                  className="px-4 py-2 text-sm text-gray-600 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors font-medium"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleReplySubmit}
+                  disabled={!replyContent.trim()}
+                  className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg transition-colors font-medium"
+                >
+                  Reply
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       
       {comment.replies?.map((reply) => (
         <Comment
@@ -60,7 +223,10 @@ const Comment = ({ comment, onReply, onDelete, depth = 0 }) => {
           comment={reply}
           onReply={onReply}
           onDelete={onDelete}
+          onEdit={onEdit}
           depth={depth + 1}
+          blogOwner={blogOwner}
+          currentUser={currentUser}
         />
       ))}
     </div>
@@ -83,7 +249,7 @@ const Blog = () => {
   );
 
   const isLoggedIn = Boolean(user?.login);
-  const isOwner = (post) => isLoggedIn && post?.username === user?.login;
+  const canModify = (post) => isLoggedIn && (post?.username === user?.login || user?.role === "ADMIN");
 
   const toggleComments = (blogId) => {
     setExpandedComments((prev) => ({ ...prev, [blogId]: !prev[blogId] }));
@@ -174,6 +340,20 @@ const Blog = () => {
     }
   };
 
+  const editComment = async (commentId, content) => {
+    try {
+      await axios.put(
+        `https://book-management-backend-d481.onrender.com/api/blogs/comments/${commentId}`,
+        { content },
+        { headers: authHeaders }
+      );
+      fetchBlogs();
+    } catch (err) {
+      console.error("Failed to edit comment:", err);
+      alert("Failed to edit comment. Please try again.");
+    }
+  };
+
   const deleteComment = async (commentId) => {
     try {
       await axios.delete(`https://book-management-backend-d481.onrender.com/api/blogs/comments/${commentId}`, {
@@ -181,7 +361,8 @@ const Blog = () => {
       });
       fetchBlogs();
     } catch (err) {
-      console.error(err);
+      console.error("Failed to delete comment:", err);
+      alert("Failed to delete comment. Please try again.");
     }
   };
 
@@ -256,7 +437,7 @@ const Blog = () => {
 
   if (loading || loadingBlogs) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <Spinner className="w-16 h-16 text-blue-600" />
           <p className="mt-4 text-gray-600 font-medium">Loading blog post...</p>
@@ -266,7 +447,7 @@ const Blog = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-blue-700">
         <div className="absolute inset-0 bg-black/20"></div>
@@ -281,8 +462,6 @@ const Blog = () => {
             </p>
           </div>
         </div>
-        <div className="absolute top-0 left-0 w-40 h-40 bg-white/10 rounded-full -translate-x-20 -translate-y-20"></div>
-        <div className="absolute bottom-0 right-0 w-60 h-60 bg-white/10 rounded-full translate-x-20 translate-y-20"></div>
       </div>
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8 -mt-12 relative z-10">
@@ -435,7 +614,7 @@ const Blog = () => {
                   </button>
 
                   <div className="flex items-center gap-2">
-                    {isOwner(post) && (
+                    {canModify(post) && (
                       editingMap[post.id] ? (
                         <>
                           <button
@@ -513,6 +692,9 @@ const Blog = () => {
                             comment={comment}
                             onReply={(parentId, content) => addComment(post.id, content, parentId)}
                             onDelete={deleteComment}
+                            onEdit={editComment}
+                            blogOwner={post.username}
+                            currentUser={user}
                           />
                         ))}
                       </div>

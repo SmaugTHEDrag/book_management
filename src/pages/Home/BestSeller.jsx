@@ -16,7 +16,7 @@ const BestSeller = () => {
 
     return (
         <>
-            <div className="text-red-700"><BookCards books={books} headline={"Best Fiction Books 2023"} /></div>
+            <div className="text-red-700 "><BookCards books={books} headline={"Best Fiction Books 2023"} /></div>
         </>
     )
 }
