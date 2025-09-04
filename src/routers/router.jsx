@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "../App";
 import { Home } from "../pages/Home/Home";
-import Shop from "../pages/Shop/Shop";
+import Library from "../pages/Library/Library";
 import { DashboardLayout } from "../Dashboard/DashboardLayout";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import Login from "../pages/Login";
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/library",
-        element: <Shop />,
+        element: <Library />,
       },
       {
         path: "/book/:id",

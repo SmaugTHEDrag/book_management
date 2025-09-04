@@ -107,10 +107,10 @@ const SingleBook = () => {
       <div className="mt-20 px-6 lg:px-20 text-center">
         <p className="text-red-500 text-lg font-medium">Error: {error}</p>
         <Link
-          to="/shop"
+          to="/library"
           className="text-blue-700 hover:underline mt-4 inline-block text-lg font-bold flex items-center gap-2"
         >
-          <HiArrowSmLeft className="text-2xl" /> Back to Shop
+          <HiArrowSmLeft className="text-2xl" /> Back to Library
         </Link>
       </div>
     );
@@ -122,10 +122,10 @@ const SingleBook = () => {
     <div className="mt-20 px-6 lg:px-20">
       {/* Back link */}
       <Link
-        to="/shop"
+        to="/library"
         className="text-blue-700 hover:underline mb-10 block text-2xl lg:text-3xl font-bold flex items-center gap-2"
       >
-        <HiArrowSmLeft className="text-3xl" /> Back to Shop
+        <HiArrowSmLeft className="text-3xl" /> Back to Library
       </Link>
 
       {/* Main content */}

@@ -3,7 +3,7 @@ import { Card, Spinner } from 'flowbite-react';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { Link } from 'react-router-dom';
 import Chatbot from '../shared/ChatBot'; 
-export default function Shop() {
+export default function Library() {
   const { loading } = useContext(AuthContext);
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');

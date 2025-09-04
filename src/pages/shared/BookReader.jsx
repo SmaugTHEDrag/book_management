@@ -13,7 +13,7 @@ export default function BookReader() {
   const [error, setError] = useState(null);
   const [numPages, setNumPages] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [scale, setScale] = useState(1.0);
+  const [scale, setScale] = useState(0.65);
   const [rotation, setRotation] = useState(0);
   const [bookTitle, setBookTitle] = useState('');
 
@@ -125,11 +125,11 @@ export default function BookReader() {
           </div>
           <h3 className="text-lg font-semibold text-gray-900 mb-2">Error Loading PDF</h3>
           <p className="text-red-600 mb-4">{error}</p>
-          <Link to="/shop" className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+          <Link to="/library" className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
-            Back to Shop
+            Back to Library
           </Link>
         </div>
       </div>
@@ -142,11 +142,11 @@ export default function BookReader() {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Link to="/shop" className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-colors">
+              <Link to="/library" className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-colors">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
-                Back to Shop
+                Back to Library
               </Link>
               <div className="h-6 border-l border-gray-300"></div>
               <div className="flex items-center space-x-2">
@@ -197,13 +197,13 @@ export default function BookReader() {
       <div className="flex">
         <div className="flex-1 flex flex-col items-center p-6">
           {pdfUrl && (
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden max-w-4xl w-full ">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden max-w-4xl w-full">
               <Document
                 file={pdfUrl}
                 onLoadSuccess={onDocumentLoadSuccess}
                 loading={
                   <div className="flex items-center justify-center p-8">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
                     <span className="ml-3 text-blue-600">Loading document...</span>
                   </div>
                 }
@@ -218,7 +218,7 @@ export default function BookReader() {
                   standardFontDataUrl: 'https://unpkg.com/pdfjs-dist@3.11.174/standard_fonts/'
                 }}
               >
-                <div className="flex justify-center p-4">
+                <div className="flex justify-center p-2">
                   <div style={{ userSelect: 'none' }}>
                     <Page
                       pageNumber={currentPage}
